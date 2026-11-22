@@ -113,17 +113,19 @@ h2{font-size:clamp(28px,4vw,42px);line-height:1.25;font-weight:800;letter-spacin
 .p-card .mini-tags{padding-top:4px}
 
 /* timeline */
-.timeline{list-style:none;position:relative;margin-top:36px;padding-left:34px}
-.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--blue-t)}
-.timeline .fill{position:absolute;left:8px;top:6px;width:2px;height:0;background:var(--blue)}
-.t-item{position:relative;padding:0 0 34px;opacity:.35;transform:translateX(-8px);transition:.5s}
+.timeline{list-style:none;position:relative;margin-top:40px;padding-left:60px}
+.timeline::before{content:"";position:absolute;left:11px;top:30px;bottom:30px;width:3px;border-radius:3px;background:var(--blue-t)}
+.timeline .fill{position:absolute;left:11px;top:30px;width:3px;height:0;border-radius:3px;background:var(--blue)}
+.t-item{position:relative;margin-bottom:28px;padding:30px 36px;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);opacity:.35;transform:translateX(-8px);transition:opacity .5s,transform .5s,border-color .25s}
+.t-item:last-child{margin-bottom:0}
 .t-item.in{opacity:1;transform:none}
-.t-item::before{content:"";position:absolute;left:-34px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:3px solid var(--blue-t);transition:.4s}
-.t-item.in::before{border-color:var(--blue);background:var(--blue)}
-.t-date{font-size:14px;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
-.t-item h3{font-size:19px;margin:2px 0}
-.t-role{font-size:14px;font-weight:600;color:var(--blue-d)}
-.t-item p{font-size:15px;color:var(--ink);margin-top:4px;max-width:680px}
+.t-item:hover{border-color:var(--blue-t);transform:translateY(-3px)}
+.t-item::before{content:"";position:absolute;left:-59px;top:32px;width:22px;height:22px;border-radius:50%;background:var(--blue-t);box-shadow:0 0 0 5px #fff,0 0 0 9px var(--blue-s);transition:.4s}
+.t-item.in::before{background:var(--blue)}
+.t-date{font-size:15px;font-weight:700;color:var(--blue);font-variant-numeric:tabular-nums}
+.t-item h3{font-size:22px;letter-spacing:-.02em;margin:6px 0 4px}
+.t-role{font-size:15px;font-weight:600;color:var(--sub)}
+.t-item p{font-size:16px;color:var(--ink);margin-top:12px;max-width:760px;line-height:1.7}
 
 /* skills: 분야별 한 줄 + 오른쪽 근거 패널 */
 .sk{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
@@ -230,6 +232,11 @@ footer{text-align:center;padding:28px;font-size:14px;color:var(--sub);background
   .scroll-hint{display:none}
 }
 @media(max-width:600px){
+  .timeline{padding-left:40px}
+  .timeline::before,.timeline .fill{left:7px}
+  .t-item{padding:22px 20px;margin-bottom:20px}
+  .t-item::before{left:-42px;top:26px;width:18px;height:18px;box-shadow:0 0 0 4px #fff,0 0 0 7px var(--blue-s)}
+  .t-item h3{font-size:19px}
   .sk-row{grid-template-columns:1fr;gap:4px}
   .sk-row h3{padding-top:0}
   .sk-etc{margin-left:0}

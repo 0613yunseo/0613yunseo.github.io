@@ -461,7 +461,7 @@ function onScroll() {
   // 타임라인 선 채우기
   const tl = $('#timeline'), r = tl.getBoundingClientRect();
   const prog = Math.min(Math.max((innerHeight * .65 - r.top) / r.height, 0), 1);
-  $('#tFill').style.height = (prog * (r.height - 12)) + 'px';
+  $('#tFill').style.height = (prog * (r.height - 60)) + 'px';
 }
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
