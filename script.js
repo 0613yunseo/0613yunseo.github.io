@@ -63,13 +63,18 @@ const TIMELINE = [
   { d: '2024.03 ~ 2027.02', t: '한양여자대학교 빅데이터전공', r: '재학중 · 3.98 / 4.5', p: '' }
 ];
 
+// [아이콘, 제목, 칩 스타일(solid|soft|plain), 항목]
 const SKILLS = [
-  ['Backend', ['Java', 'Spring Boot', 'JSP', 'REST API', 'JUnit']],
-  ['Frontend · App', ['React', 'TypeScript', 'JavaScript', 'Kotlin', 'Jetpack Compose']],
-  ['Database', ['MySQL', 'PostgreSQL', 'SQL']],
-  ['Tools', ['Git', 'GitHub', 'Eclipse', 'Cursor', 'Figma', 'Notion']],
-  ['AI Tools', ['ChatGPT', 'Codex', 'Claude', 'Gemini']],
-  ['Collaboration', ['브랜치 관리', '코드 병합', '팀 간 조율']]
+  ['⚙️', '백엔드', 'solid', ['Java', 'Spring Boot', 'JSP', 'REST API', 'JUnit']],
+  ['🖥️', '프론트엔드 · 앱', 'soft', ['React', 'TypeScript', 'JavaScript', 'Kotlin', 'Jetpack Compose']],
+  ['🗄️', '데이터베이스', 'soft', ['MySQL', 'PostgreSQL', 'SQL']],
+  ['🔧', '도구', 'soft', ['Git', 'GitHub', 'Eclipse', 'Cursor', 'Figma', 'Notion']],
+  ['🤖', 'AI 도구', 'soft', ['ChatGPT', 'Codex', 'Claude', 'Gemini']],
+  ['🤝', '협업', 'plain', ['브랜치 관리', '코드 병합', '팀 간 조율']]
+];
+const CERTS = [
+  ['AI-900', '2026.05', 'Microsoft'],
+  ['데이터분석 준전문가', '2025.03', '한국데이터산업진흥원']
 ];
 
 /* ===== 렌더링 ===== */
@@ -94,8 +99,10 @@ $('#timeline').innerHTML = '<span class="fill" id="tFill"></span>' + TIMELINE.ma
     ${i.p ? `<p>${esc(i.p)}</p>` : ''}
   </li>`).join('');
 
-$('#skillGrid').innerHTML = SKILLS.map(([n, list]) =>
-  `<div class="s-box"><h3>${n}</h3><div class="tags">${list.map(x => `<span>${esc(x)}</span>`).join('')}</div></div>`).join('');
+$('#skillGrid').innerHTML = SKILLS.map(([ico, n, style, list]) =>
+  `<div class="s-group"><h3><i>${ico}</i>${n}</h3><div class="tags ${style}">${list.map(x => `<span>${esc(x)}</span>`).join('')}</div></div>`).join('') +
+  `<div class="s-group"><h3><i>📜</i>자격증</h3><div class="certs">${CERTS.map(([t, d, o]) =>
+    `<div class="cert"><span class="medal">🏅</span><b>${esc(t)}</b><small>${esc(o)} · ${esc(d)}</small></div>`).join('')}</div></div>`;
 
 /* ===== 필터 ===== */
 $('#filters').addEventListener('click', e => {
