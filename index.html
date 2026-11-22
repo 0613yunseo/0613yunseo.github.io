@@ -27,7 +27,7 @@
     <section class="hero" id="hero">
       <div class="hero-text">
         <h1>요구사항을 코드로,<br>동작까지 확인하는<br><span class="hl">백엔드 개발자</span><br>최윤서입니다.</h1>
-        <p class="lead">설계한 데이터가 실제 기능에 쓰이는 순간에 흥미를 느낍니다.<br>작은 기능도 직접 구현하고 테스트하며 정확하게 동작하는지 확인합니다.</p>
+        <p class="lead">사용자의 문제를 서비스 구조로 정리하고, 데이터 구조·API·기능으로 연결합니다.<br>작은 기능도 직접 구현하고 테스트하며 정확하게 동작하는지 확인합니다.</p>
         <div class="cta">
           <a class="btn primary" href="#projects">프로젝트 보기</a>
           <a class="btn" href="https://github.com/0613yunseo" target="_blank" rel="noopener">GitHub ↗</a>
@@ -55,27 +55,27 @@
           <p>구현 전에 처리 조건과 예외 상황을 먼저 정리합니다.</p>
         </article>
         <article class="card">
-          <span class="ico">🧪</span>
-          <h3>직접 검증</h3>
-          <p>JUnit 테스트로 정상·예외 상황을 확인합니다.</p>
-        </article>
-        <article class="card">
           <span class="ico">🗄️</span>
-          <h3>데이터 설계</h3>
-          <p>ERD와 SQL 테이블, 키·제약조건을 설계해 본 경험이 있습니다.</p>
+          <h3>데이터 · API 설계</h3>
+          <p>ERD, SQL 테이블, 키·제약조건과 API 명세를 직접 정리해 봤습니다.</p>
         </article>
         <article class="card">
-          <span class="ico">🤝</span>
-          <h3>협업 · Git</h3>
-          <p>브랜치 관리와 코드 병합 방법을 팀원들과 공유했습니다.</p>
+          <span class="ico">🧪</span>
+          <h3>테스트로 확인</h3>
+          <p>JUnit과 자동 테스트로 정상·예외 상황을 확인합니다.</p>
+        </article>
+        <article class="card">
+          <span class="ico">🔍</span>
+          <h3>AI 결과 검증</h3>
+          <p>AI가 만든 코드와 인용도 원본·테스트로 다시 확인합니다.</p>
         </article>
       </div>
 
       <div class="stats">
         <div><b data-count="3.98" data-dec="2">0</b><small>학점 / 4.5</small></div>
         <div><b data-count="21" data-suffix="개월">0</b><small>동아리 활동</small></div>
-        <div><b data-count="6">0</b><small>대표 프로젝트</small></div>
-        <div><b data-count="1" data-suffix="회">0</b><small>공모전 최우수상</small></div>
+        <div><b data-count="13">0</b><small>참여 프로젝트</small></div>
+        <div><b data-count="2" data-suffix="회">0</b><small>수상 (최우수상 · 장려상)</small></div>
       </div>
     </section>
 
@@ -83,10 +83,15 @@
     <section id="projects" class="reveal">
       <p class="label">Projects</p>
       <h2>문제를 정리하고, 구현하고, 확인한 기록</h2>
+      <p class="sec-desc">백엔드와 데이터 흐름을 중심으로 정리했습니다. 카드를 누르면 상세 내용을 볼 수 있습니다.</p>
+      <h3 class="sub-h">Main Projects</h3>
+      <div class="featured" id="featured"></div>
+
+      <h3 class="sub-h">Project Archive</h3>
       <div class="filters" id="filters">
         <button class="on" data-f="all">전체</button>
-        <button data-f="backend">백엔드</button>
-        <button data-f="app">앱 · 웹</button>
+        <button data-f="backend">백엔드 · 데이터</button>
+        <button data-f="web">웹 · 앱</button>
         <button data-f="plan">기획 · 설계</button>
       </div>
       <div class="grid" id="grid"></div>

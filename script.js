@@ -1,76 +1,231 @@
-/* ===== 데이터: 여기만 수정하면 내용이 바뀝니다 ===== */
+/* ===== 데이터: 여기만 수정하면 내용이 바뀝니다 =====
+   main: true  → 상단 대표 프로젝트(큰 카드)
+   cat         → 아카이브 필터 (backend | web | plan)
+   img         → assets/shots/ 이미지, 없으면 flow(데이터 흐름)를 대신 보여줌
+   links       → [라벨, URL] */
 const PROJECTS = [
   {
-    id: 'haengdong', cat: 'app', tag: 'CAPSTONE · 2026.03 ~ 2026.11',
-    title: '동행가드', badge: '9개월 · 캡스톤',
-    summary: '전동 휠체어 이용자의 이동 안전을 돕는 서비스. Android 앱과 관리자 웹을 개발했습니다.',
-    stack: ['Kotlin', 'Jetpack Compose', 'React', 'TypeScript', 'Spring Boot', 'MySQL'],
-    role: ['Kotlin·Jetpack Compose로 주행 화면, 위험 단계 알림, 주행 기록 조회 구현', 'React·TypeScript로 관리자 웹의 대시보드와 위험 이벤트 조회 화면 개발', 'Spring Boot REST API로 주행 기록·센서 데이터를 조회하고 서비스 로직과 응답 코드 일부 수정', 'MySQL 저장 결과를 확인하고 위험 단계·거리 정보가 앱 화면에 정상 표시되는지 테스트'],
+    id: 'catchup', main: true, cat: 'backend',
+    period: '2026.11', org: 'NEXT AI 교내 해커톤 · 개인 프로젝트', award: '🏆 장려상',
+    title: 'CatchUp AI', sub: '회의 요구사항 ↔ GitHub 코드 구현 근거 검증 서비스',
+    summary: '회의록·피드백에서 요구사항을 추출하고, 결정 변경 이력과 공개 GitHub 저장소의 실제 코드 근거를 연결해 구현 여부를 판정하는 AI 기반 검증 서비스입니다.',
+    stack: ['Next.js', 'TypeScript', 'OpenAI API', 'GitHub REST API', 'Supabase Auth', 'PostgreSQL', 'RLS', 'Vercel', 'Playwright'],
+    points: ['서버 API에서 AI 응답의 원문·코드 인용을 실제 원본과 대조', 'Supabase RLS로 사용자별 리포트 접근 제한', '자동 테스트 147개 · tsc · ESLint 통과'],
+    role: [
+      'Next.js 서버 API로 문서 텍스트 추출 → 요구사항 추출 → 회의 변경 비교 → GitHub 코드 조회 → 구현 판정 흐름 구성',
+      '요구사항 결정 상태(CONFIRMED·PROPOSED·UNCLEAR)와 구현 판정(VERIFIED·PARTIAL·MISMATCH·UNKNOWN) 정의',
+      'GitHub REST API로 공개 저장소 확인과 기본 브랜치 코드 수집',
+      'Supabase Auth 이메일 로그인, 리포트 저장·조회·삭제, RLS 정책(auth.uid() = user_id) 적용',
+      'OpenAI API 키는 서버 환경변수로만 관리'
+    ],
+    verify: [
+      'AI가 제시한 문서 인용이 실제 입력 문서에 있는지 서버에서 검증',
+      'AI가 생성한 코드 인용을 실제 GitHub 원본 파일과 대조하고, 확인되지 않으면 근거에서 제외하거나 신뢰도를 낮춤',
+      '주석이나 import 문만으로 구현 완료로 판단하지 않도록 보수적 판정 규칙 적용',
+      '최신 회의록에 다시 언급되지 않았다는 이유만으로 삭제로 단정하지 않음'
+    ],
+    problem: '캡스톤과 현장실습에서 회의에서 정한 기능이 이후 어떻게 바뀌었는지, 실제 코드에 반영됐는지 확인하려면 문서와 GitHub 파일을 일일이 대조해야 했습니다.',
+    solve: '요구사항을 출처와 함께 구조화하고 실제 코드 근거로 점검하는 흐름을 만들었습니다. 최종 QA에서 자동 테스트 147개, TypeScript·ESLint, 프로덕션 빌드, 1440·768·390px 반응형을 확인했습니다. 계정 간 교차 접근 차단 통합 테스트는 남은 과제입니다.',
+    img: 'catchup.jpg',
+    links: [['서비스', 'https://catchup-ai-liart.vercel.app/'], ['GitHub', 'https://github.com/0613yunseo/catchup-ai']]
+  },
+  {
+    id: 'sion', main: true, cat: 'backend',
+    period: '2026.01', org: '시온정보시스템 · 일본 현장실습 · 6인 팀',
+    title: '상수도 관리 웹 시스템', sub: 'JSP · PostgreSQL 기반 관리자 업무 시스템',
+    summary: '일본 현지 기업의 요구사항을 바탕으로 고객 정보, 관할 구역, 요금 고지, 입금 및 연체 고객 관리를 지원하는 JSP 기반 상수도 관리 웹 시스템입니다.',
+    stack: ['Java', 'JSP', 'PostgreSQL', 'SQL', 'HTML/CSS/JS', 'Eclipse', 'Git'],
+    points: ['관리자 테이블 기반 로그인 검증과 세션 처리', '고객번호 중심 ERD · PK/FK 제약조건 설계', 'Git 브랜치 협업 정리와 충돌 해결 지원'],
+    role: [
+      '관리자 사번·비밀번호를 PostgreSQL 관리자 테이블과 대조하는 로그인 구현',
+      '로그인 성공 시 메인 이동, 로그아웃 시 세션 종료, 비로그인 사용자의 관리자 페이지 접근 차단',
+      '관할 구역 리스트 조회 화면과 구역명 검색 구조 구현, 회사 피드백에 맞춰 메뉴·화면 수정',
+      '고객 정보·요금 청구·입금 내역 ERD와 SQL 테이블 설계, PostgreSQL 데이터를 JSP 화면에 연동',
+      '페이지별 상세설계서 작성'
+    ],
+    problem: '처음에는 모든 정보를 관리하려고 테이블과 속성을 많이 만들어 관계가 복잡해졌습니다. 팀원 대부분은 GitHub 협업 경험이 적어 충돌이 잦았습니다.',
+    solve: '담당자 피드백으로 불필요한 테이블을 정리하고 고객 정보를 중심으로 청구·입금 내역을 분리해 고객번호로 연결했습니다. 기능별 브랜치, 작업 전 pull, dev 브랜치 기준 머지 흐름을 정리해 계획보다 일찍 통합을 마쳤습니다.',
+    flow: ['JSP 화면 (로그인 · 관할 구역)', '관리자 인증 · 세션', 'PostgreSQL (고객 · 청구 · 입금)'],
+    links: [['GitHub', 'https://github.com/daaaaahye/sion']]
+  },
+  {
+    id: 'haengdong', main: true, cat: 'backend',
+    period: '2026.03 ~ 진행중', org: '캡스톤디자인',
+    title: '동행가드', sub: '전동 휠체어 이동 안전 보조 서비스',
+    summary: '전동 휠체어 이용자가 이동 중 마주치는 장애물·단차·충돌 위험을 센서로 감지하고, 앱과 관리자 웹에서 위험 상태와 누적 위험 구간을 확인하는 서비스입니다.',
+    stack: ['Spring Boot', 'REST API', 'MySQL', 'Kotlin', 'Jetpack Compose', 'React', 'TypeScript'],
+    points: ['앱·관리자 웹은 Spring Boot API만 호출하는 구조', '주행 ID 발급 후 센서 이벤트 조회 · 위험 단계 표시', 'ERD 요구사항 · API Mapping · API 명세 정리'],
+    role: [
+      'Spring Boot REST API로 주행 기록·센서 데이터를 조회하고 백엔드 서비스 로직과 API 응답 코드 일부 수정',
+      'MySQL 저장 결과를 확인하고 위험 단계·거리 정보가 화면에 정상 표시되는지 테스트',
+      'Kotlin·Jetpack Compose로 주행 화면, 위험 단계 알림, 주행 기록 조회 구현',
+      'React·TypeScript로 관리자 웹 대시보드와 위험 이벤트 조회 화면 개발',
+      '사용자 앱·관리자 웹 IA, 화면별 기능/데이터 정의서, API Mapping, ERD 요구사항 정리'
+    ],
     problem: '센서의 위험 이벤트를 모두 조회하자 같은 위험 단계가 반복되어 기록이 길어졌습니다.',
-    solve: '위험 단계가 바뀌는 시점을 중심으로 보여주는 방식을 제안하고, 백엔드 팀원과 이벤트 요약 방식·API 응답 구조를 함께 검토했습니다. 일부 로직은 보완 중입니다.'
+    solve: '위험 단계가 바뀌는 시점을 중심으로 보여주는 방식을 제안하고, 백엔드 담당 팀원과 이벤트 요약 방식과 API 응답 구조를 함께 검토했습니다. 일부 로직은 보완 중입니다.',
+    flow: ['Android 앱 · 관리자 웹', 'Spring Boot REST API', 'MySQL', 'FastAPI AI 서버 (경로·위험 분석)']
   },
   {
-    id: 'binteum', cat: 'backend', tag: 'STARTUP CLUB · 2025',
-    title: '빈틈', badge: 'Spring Boot · JUnit',
-    summary: '카페 혼잡도와 공간 정보를 바탕으로 방문 목적에 맞는 카페를 찾는 서비스입니다.',
-    stack: ['Spring Boot', 'Java', 'JUnit'],
-    role: ['팀원들과 기능을 나누어 PoC 진행, 혼잡도 제보 등록 기능 담당', '사용자 ID·카페 ID·혼잡도 값의 필수 입력 검증 구현', '같은 사용자가 같은 카페에 60분 이내 다시 제보하면 등록되지 않는 중복 방지 로직 설계', 'ChatGPT·Codex로 작성한 코드를 직접 검토·수정하고 JUnit으로 정상 등록과 중복 제보 확인'],
-    problem: 'AI 도구로 코드를 작성해도 처리 조건과 예외 상황이 정리되어 있지 않으면 검증하기 어렵습니다.',
-    solve: '조건과 예외 상황을 먼저 정리한 뒤 구현하고, 테스트로 실제 동작을 직접 확인하는 순서로 작업했습니다.'
+    id: 'binteum', main: true, cat: 'backend',
+    period: '2026.03 ~ 진행중', org: '창업동아리 뉴클리어스 · 5인 팀',
+    title: '빈틈', sub: '목적 기반 카페 혼잡도 탐색 서비스',
+    summary: '방문 전에 카페의 현재·예상 혼잡도와 공부·업무·대화·휴식 적합도를 확인하는 서비스입니다. 최근 제보가 있으면 현재 혼잡도를, 부족하면 요일·시간대 패턴과 누적 제보로 예상 혼잡도를 보여주고, 최근 제보 시각과 누적 제보 수로 신뢰도를 함께 표시합니다.',
+    stack: ['Java 21', 'Spring Boot 4', 'Spring Security', 'JWT', 'JPA', 'PostgreSQL · PostGIS', 'Redis', 'JUnit'],
+    points: ['Spring Security + JWT 인증·권한(USER · ADMIN · 비회원) 공통 기반 구축', '401/403을 공통 오류 규격(ProblemDetail + code)으로 통일', '보안 설정 테스트 18개 · 인증 가이드 · Git 컨벤션 문서화'],
+    role: [
+      '백엔드 공통 기반 셋업: 프로젝트 구조, local·prod·test 프로필, 필수 환경변수 검증(RequiredEnvironmentValidator)',
+      'JwtTokenProvider(토큰 생성 · 서명·만료 검증)와 JwtAuthenticationFilter(Bearer 토큰 추출 · SecurityContext 설정) 구현',
+      'SecurityConfig에 공개 · 로그인 사용자 · /api/admin/** 관리자 경로 규칙, Stateless 세션, CORS 설정',
+      'SecurityErrorHandler로 401·403 응답을 팀 공통 오류 규격(ProblemDetail + code)에 연동',
+      'JwtTokenProviderTest(5개), SecurityConfigTest(13개) 작성',
+      '인증·권한 가이드, Git 협업 컨벤션(브랜치명 규칙 포함), PR 템플릿 작성과 PR 머지 관리',
+      'PoC 단계: 혼잡도 제보 등록 기능 — 필수 입력값 검증, 같은 사용자의 60분 내 중복 제보 차단'
+    ],
+    verify: [
+      '구현 전에 처리 조건과 예외 상황을 먼저 정리',
+      'ChatGPT·Codex로 작성한 코드를 직접 검토·수정',
+      'JUnit 테스트로 정상 등록과 중복 제보, 토큰 검증·경로별 권한 등 예외 상황을 확인'
+    ],
+    problem: '기획상 비회원도 홈·카페 탐색·상세·비교를 볼 수 있어야 하지만, 기본 보안 규칙은 인증 경로 외 모든 요청에 로그인을 요구했습니다. 같은 API에서 로그인 여부에 따라 응답도 달라져야 했습니다.',
+    solve: '공개 경로에서도 토큰이 있으면 필터가 인증 정보를 넣고, 비회원이면 principal을 null로 두어 하나의 API 안에서 분기할 수 있게 했습니다. 비회원 조회 경로는 API 규격 확정 후 GET만 공개하는 방식으로 가이드에 정리했습니다.',
+    flow: ['요청 · Authorization: Bearer 토큰', 'JwtAuthenticationFilter (서명 · 만료 검증)', 'SecurityConfig 경로 권한 (공개 · USER · ADMIN)', 'Controller  /  실패 시 401 · 403 ProblemDetail']
+  },
+
+  /* ----- 아카이브 ----- */
+  {
+    id: 'pivot', cat: 'backend', period: '2026.04 ~ 2026.05', org: '팀 프로젝트 · 공모전 제출',
+    title: 'Pivot Seoul', sub: '서울 공공데이터 기반 AI 의사결정 시뮬레이터',
+    summary: '서울시 공공데이터로 주거·커리어·돌봄·정책 선택을 현재 지역과 비교 지역 A/B로 비교하고, 생애 조건에 맞는 의사결정을 돕는 AI 시뮬레이터입니다.',
+    stack: ['Spring Boot', 'Java 17', 'PostgreSQL', 'FastAPI', 'Next.js', 'TypeScript', 'Docker'],
+    role: [
+      'PRD Archive, 사용자·관리자 IA, 기능·비기능 요구사항 정리',
+      'Spring Boot 백엔드와 FastAPI AI 서비스의 책임 분리 구조 정리',
+      'Simulation Session · Scenario · Simulation Run · Scenario Result 중심 ERD와 데이터 정의서 정리',
+      'API 명세서 작성 참여',
+      '결과 화면을 한 줄 진단 → 임계점 → A/B 비교 → 위험 구간 → 회복 방법 → 이번 주 할 일 → 데이터 근거 순서로 구성'
+    ],
+    img: 'pivotseoul.jpg',
+    links: [['프로토타입', 'https://apron-nova-83477765.figma.site/'], ['GitHub', 'https://github.com/bigdata-seoul/pivotSeoul']]
   },
   {
-    id: 'water', cat: 'backend', tag: 'INTERNSHIP · 2026.01',
-    title: '상수도 관리 웹 시스템', badge: '일본 현장실습 · 6인 팀',
-    summary: '시온정보시스템 현장실습에서 Java/JSP와 PostgreSQL 기반 상수도 관리 시스템을 개발했습니다.',
-    stack: ['Java', 'JSP', 'PostgreSQL', 'SQL', 'Git'],
-    role: ['고객 정보·요금 청구·입금 내역을 관리하는 ERD와 SQL 테이블 설계', '기본키·외래키 제약조건을 설정하고 고객번호 기준으로 테이블 연결', '관리자 로그인·로그아웃, 고객 목록 조회, 관할 구역 관리 구현', 'Git이 익숙하지 않은 팀원들에게 브랜치 관리와 코드 병합 방법 공유'],
-    problem: '처음에는 테이블과 속성을 많이 만들어 관계가 복잡해졌습니다.',
-    solve: '담당자 피드백을 받아 불필요한 테이블과 관계를 다시 검토하고, 고객 정보를 중심으로 청구·입금 내역을 분리해 고객번호로 연결하는 구조로 수정했습니다. 팀 내 병합 충돌 대비 시간을 줄여 계획보다 일찍 작업을 마쳤습니다.'
+    id: 'glin', cat: 'backend', period: '2026.02', org: '개인 프로젝트',
+    title: 'Glin', sub: 'Evidence 기반 PDF 요약 MCP 서버',
+    summary: '로컬 PDF를 요약하고, 각 요약 문장의 원문 근거를 page·line·quote 단위로 확인할 수 있도록 설계한 서비스입니다.',
+    stack: ['MCP Server', 'Supabase', 'Docker Compose', 'Embedding Retrieval', 'Reranker'],
+    role: [
+      '제공된 PRD를 바탕으로 IA, 문서·요약·evidence 중심 ERD 설계',
+      '기술스택 정의서와 프로젝트 파일구조 작성',
+      'Supabase DB 구조 정리와 데이터베이스 연동',
+      '텍스트 추출 → 라인 생성 → 요약 → 근거 후보 검색 → 재랭킹 → 반환 흐름 구체화',
+      '무드보드·로고·프로토타입 제작'
+    ],
+    links: [['GitHub', 'https://github.com/0613yunseo/Glin']]
   },
   {
-    id: 'trenda', cat: 'backend', tag: 'STARTUP CLUB',
-    title: 'Trenda', badge: 'Spring Boot 백엔드',
-    summary: '전공자의 프로젝트와 성장을 관리하는 플랫폼입니다.',
-    stack: ['Spring Boot', 'Java', 'Database'],
-    role: ['Spring Boot 기반 백엔드 구현 참여', '데이터베이스 구조 검토 참여'],
-    problem: '', solve: ''
+    id: 'trenda', cat: 'backend', period: '2025.10 ~ 2025.12', org: '미니 프로젝트 · 스터디',
+    title: 'Trenda', sub: '디자인·개발 전공자 성장 관리 플랫폼',
+    summary: '전공자가 프로젝트, 포트폴리오, 트렌드 리서치, 학습 성장을 한 곳에서 관리하도록 기획한 플랫폼입니다.',
+    stack: ['Spring Boot', 'PostgreSQL', 'Next.js', 'React', 'TypeScript', 'Figma'],
+    role: [
+      'Spring Boot 기반 백엔드 구현과 데이터베이스 구조 검토 참여',
+      'Pre-IA·IA 구조 설계',
+      '커뮤니티 허브와 소개 웹 랜딩 와이어프레임·프로토타입 제작'
+    ],
+    img: 'trenda.jpg',
+    links: [['웹 배포', 'https://trenda-vj5z.vercel.app/'], ['GitHub', 'https://github.com/siren8289/trenda']]
   },
   {
-    id: 'meme', cat: 'app', tag: 'STARTUP CLUB',
-    title: '밈 아카이브', badge: '개발 파트 총괄',
-    summary: '밈을 모아 볼 수 있는 웹 서비스. 개발 파트 총괄로 디자인팀과 개발팀의 작업 방향을 조율했습니다.',
-    stack: ['React', 'GitHub', 'Figma'],
-    role: ['React로 담당 화면 구현', '개발 파트 총괄로서 디자인팀·개발팀 작업 방향 조율', 'GitHub 브랜치 관리와 코드 병합 진행'],
-    problem: '', solve: ''
+    id: 'meme', cat: 'web', period: '2025.09 ~ 2025.12', org: '창업동아리 · 부회장 · 개발 총괄',
+    title: 'TrendArc · 밈 아카이브', sub: '참여형 밈 아카이브 웹',
+    summary: '밈과 유행어의 기원, 확산 과정, 사용 맥락을 기록하고 사용자 투표·요청·신고로 함께 만드는 웹 아카이브입니다.',
+    stack: ['React', 'Vite', 'JavaScript', 'Figma', 'GitHub'],
+    role: [
+      '부회장으로 프로젝트 진행과 개발 파트 총괄',
+      '디자인팀 프로토타입을 기반으로 구현 가능 범위와 기능 우선순위 조율',
+      'React로 담당 화면 UI 구현, 밈 요청·투표·신고 흐름의 개발 방향 정리',
+      'GitHub 브랜치 관리와 코드 병합 진행'
+    ],
+    links: [['GitHub', 'https://github.com/0613yunseo/Meme-Archive']]
   },
   {
-    id: 'eardream', cat: 'plan', tag: 'CONTEST · 2025',
-    title: 'earDream', badge: '🏆 최우수상',
-    summary: '시니어의 디지털 기기 사용을 돕는 학습 앱. 지역혁신 인재양성 연합 페스티벌 공모전에서 최우수상을 받았습니다.',
-    stack: ['IA 설계', '프로토타입', 'Figma'],
-    role: ['사용자 페르소나와 주요 기능 흐름 정리', 'IA 설계와 앱 프로토타입 제작 참여', '서로 다른 전공 팀원들과 요구사항을 조율해 기능과 화면 구조 구체화'],
-    problem: '', solve: ''
+    id: 'eco', cat: 'web', period: '2025.10 ~ 2025.11', org: '5인 팀 프로젝트',
+    title: 'EcoCampus+', sub: '센서 기반 스마트 캠퍼스 ESG 플랫폼',
+    summary: 'BLE Beacon·Raspberry Pi로 강의실 이용 행동을 인식하고, AI 분석 결과를 미션·보상·피드백으로 연결하는 ESG 플랫폼입니다.',
+    stack: ['Expo', 'React Native', 'TypeScript', 'Figma', 'GitHub'],
+    role: [
+      '학생 앱의 Home 화면과 캐릭터 성장 화면 구성',
+      '서비스 흐름에 맞는 화면 구조와 보상 경험 설계',
+      '컬러 시스템 지정, 컴포넌트 분리, 프로토타입 제작 참여'
+    ],
+    img: 'ecocampus.jpg', imgNote: '팀 관리자 대시보드 프로토타입',
+    links: [['프로토타입', 'https://probe-title-31527156.figma.site/dashboard'], ['GitHub', 'https://github.com/siren8289/ecoCampus']]
+  },
+  {
+    id: 'maumm', cat: 'web', period: '2025.08', org: '사이드 프로젝트',
+    title: 'Maumm', sub: '감정 기록 기반 모바일 서비스',
+    summary: '감정과 짧은 일기를 기록하고, 누적 데이터를 통계와 피드백으로 확인하는 감정 기록 앱입니다.',
+    stack: ['React Native', 'Expo', 'JavaScript', 'GitHub'],
+    role: [
+      '담당 페이지 화면 구현과 반복 UI 컴포넌트 분리',
+      '페이지별 파일 구조와 컴포넌트 역할 이해',
+      'GitHub clone·branch·merge 협업 흐름 학습'
+    ],
+    links: [['GitHub', 'https://github.com/siren8289/Maumm_side-project']]
+  },
+  {
+    id: 'minimo', cat: 'web', period: '2025.05 ~ 2025.07', org: '창업동아리 VALUABLE',
+    title: 'Minimo', sub: '1인 가구 공동구매·렌탈 플랫폼',
+    summary: '1인 가구가 생활용품을 공동구매하거나 필요한 제품을 렌탈·공유할 수 있는 플랫폼입니다.',
+    stack: ['React', 'JavaScript', 'React Router DOM', 'GitHub'],
+    role: [
+      '프로토타입을 기반으로 목록·공동구매 상세·렌탈 상세·상품 등록 화면 구현',
+      '상품 카드·버튼·상세 정보 영역을 컴포넌트로 분리',
+      'Home → List → Detail 화면 이동 구조와 페이지별 데이터 구성 이해'
+    ],
+    links: [['GitHub', 'https://github.com/siren8289/UXVERSE']]
+  },
+  {
+    id: 'mido', cat: 'plan', period: '2025.12 ~ 2026.01', org: '어치브모먼트 블레이버스 인사이트톤', award: '본선 진출',
+    title: 'Mido', sub: '과정 중심 AI 협업 가이드라인 시스템',
+    summary: 'AI 결과물의 사후 검토 부담을 줄이기 위해, 팀 기준을 작업 과정 중에 제공하는 AI 협업 가이드라인 시스템입니다.',
+    stack: ['Figma', 'Notion', 'PRD', 'IA', 'User Flow'],
+    role: ['문제 정의, PRD, 핵심 기능, 사용자 흐름 정리', '프로토타입 제작', '사업계획서 작성 참여'],
+    img: 'mido.jpg',
+    links: [['프로토타입', 'https://daisy-power-83395279.figma.site/'], ['GitHub', 'https://github.com/siren8289/MIDO']]
+  },
+  {
+    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', award: '🏆 최우수상',
+    title: 'earDream', sub: '시니어 맞춤형 디지털 학습 앱',
+    summary: 'AI 진단, 챗봇 학습, 미션 수행, 보상 흐름으로 시니어의 디지털 기기 사용을 돕는 학습 앱 기획입니다. 개발 전공 3명, 디자인 전공 2명이 참여했습니다.',
+    stack: ['Figma', 'Notion', 'IA', 'User Flow', 'Prototype'],
+    role: ['사용자 페르소나와 주요 기능 흐름 정리', 'IA 설계와 앱 프로토타입 제작 참여'],
+    problem: '기능이 늘어나며 구조가 복잡해졌고, 주 사용자가 시니어라 쉬운 흐름이 중요했습니다.',
+    solve: '기능을 주요 메뉴별로 재분류하고 진단 → 맞춤 미션 → 수행 확인 → 보상 → 마이페이지 흐름을 IA에 반영했습니다.'
   }
 ];
 
 const TIMELINE = [
-  { d: '2026.05', t: 'Microsoft AI-900', r: '자격증', p: 'Azure AI Fundamentals 취득' },
-  { d: '2026.03 ~ 2026.11', t: '캡스톤디자인 · 동행가드', r: 'Android · 관리자 웹 개발', p: 'Kotlin, React, TypeScript와 Spring Boot REST API 연동.' },
-  { d: '2026.01', t: '시온정보시스템 (일본 현장실습)', r: '인턴 · 6인 팀', p: 'Java/JSP, PostgreSQL 기반 상수도 관리 웹 시스템 개발. ERD·SQL 설계.' },
-  { d: '2025.03 ~ 2026.11', t: '한양여자대학교 창업동아리', r: '팀원 → 부회장', p: '웹·앱 서비스 개발. 1년 이상 부회장으로 개발 파트 진행과 협업 조율.' },
-  { d: '2025', t: '지역혁신 인재양성 연합 페스티벌 공모전', r: '최우수상', p: 'earDream 기획·프로토타입 참여.' },
+  { d: '2026.11', t: 'NEXT AI 교내 해커톤', r: '장려상 · CatchUp AI', p: '회의 요구사항과 GitHub 코드 구현 근거를 연결하는 검증 서비스 개발.' },
+  { d: '2026.05', t: 'Microsoft AI-900', r: '자격증', p: '' },
+  { d: '2026.03 ~ 진행중', t: '캡스톤디자인 · 동행가드', r: '백엔드 연동 · 앱 · 관리자 웹', p: 'Spring Boot REST API 연동, Kotlin 앱과 React 관리자 웹 개발.' },
+  { d: '2026.01', t: '시온정보시스템 (일본 현장실습)', r: '인턴 · 6인 팀', p: 'JSP·PostgreSQL 상수도 관리 웹 시스템. 로그인·관할 구역 관리, ERD 설계.' },
+  { d: '2025.12 ~ 2026.01', t: '어치브모먼트 블레이버스 인사이트톤', r: '본선 진출 · Mido', p: '' },
+  { d: '2025.11', t: '지역혁신 인재양성 연합 페스티벌 공모전', r: '최우수상 · earDream', p: '한국정보통신보안윤리학회' },
+  { d: '2025.03 ~ 현재', t: '한양여자대학교 창업동아리', r: '팀원 → 부회장', p: 'VALUABLE(2025) · 뉴클리어스(2026). 웹·앱 서비스 개발, 개발 파트 진행과 협업 조율.' },
   { d: '2025.03', t: '데이터분석 준전문가', r: '한국데이터산업진흥원', p: '' },
-  { d: '2024.03 ~ 2027.02', t: '한양여자대학교 빅데이터전공', r: '재학중 · 3.98 / 4.5', p: '' }
+  { d: '2024.03 ~ 2027.02', t: '한양여자대학교 빅데이터과', r: '재학중 · 3.98 / 4.5', p: '' }
 ];
 
 // [아이콘, 제목, 칩 스타일(solid|soft|plain), 항목]
 const SKILLS = [
-  ['⚙️', '백엔드', 'solid', ['Java', 'Spring Boot', 'JSP', 'REST API', 'JUnit']],
-  ['🖥️', '프론트엔드 · 앱', 'soft', ['React', 'TypeScript', 'JavaScript', 'Kotlin', 'Jetpack Compose']],
-  ['🗄️', '데이터베이스', 'soft', ['MySQL', 'PostgreSQL', 'SQL']],
-  ['🔧', '도구', 'soft', ['Git', 'GitHub', 'Eclipse', 'Cursor', 'Figma', 'Notion']],
-  ['🤖', 'AI 도구', 'soft', ['ChatGPT', 'Codex', 'Claude', 'Gemini']],
-  ['🤝', '협업', 'plain', ['브랜치 관리', '코드 병합', '팀 간 조율']]
+  ['⚙️', '백엔드', 'solid', ['Java', 'Spring Boot', 'Spring Security', 'JWT', 'JSP', 'REST API', 'JUnit']],
+  ['🗄️', '데이터베이스', 'soft', ['PostgreSQL', 'MySQL', 'SQL', 'Supabase (Auth · RLS)']],
+  ['🖥️', '프론트엔드 · 앱', 'soft', ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Kotlin', 'Jetpack Compose']],
+  ['📐', '설계 문서', 'soft', ['PRD', 'IA', 'ERD', 'API 명세서', '화면설계서']],
+  ['🔧', '도구', 'soft', ['Git', 'GitHub', 'Eclipse', 'Vercel', 'Cursor', 'Figma', 'Notion']],
+  ['🤖', 'AI', 'soft', ['OpenAI API', 'ChatGPT', 'Codex', 'Claude', 'Gemini']],
+  ['🤝', '협업', 'plain', ['브랜치 전략 정리', '충돌 해결', '팀 간 조율']]
 ];
 const CERTS = [
   ['AI-900', '2026.05', 'Microsoft'],
@@ -80,15 +235,37 @@ const CERTS = [
 /* ===== 렌더링 ===== */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const SHOT = 'assets/shots/';
 
-$('#grid').innerHTML = PROJECTS.map(p => `
+// 이미지가 없으면 데이터 흐름을 그림 대신 보여줌
+const visual = p => p.img
+  ? `<img src="${SHOT + p.img}" alt="${esc(p.title)} 화면" loading="lazy">`
+  : p.flow
+    ? `<ol class="flow">${p.flow.map(f => `<li>${esc(f)}</li>`).join('')}</ol>`
+    : `<div class="noimg"><b>${esc(p.title)}</b><span>${esc(p.sub)}</span></div>`;
+
+$('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
+  <button class="f-card" data-id="${p.id}">
+    <div class="f-vis">${visual(p)}</div>
+    <div class="f-body">
+      <span class="p-tag">${String(i + 1).padStart(2, '0')} · ${esc(p.period)}${p.award ? ` · <em>${esc(p.award)}</em>` : ''}</span>
+      <h3>${esc(p.title)}</h3>
+      <p class="f-sub">${esc(p.sub)}</p>
+      <ul class="f-points">${p.points.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+      <div class="mini-tags">${p.stack.slice(0, 5).map(s => `<span>${esc(s)}</span>`).join('')}</div>
+      <span class="p-more">자세히 보기 →</span>
+    </div>
+  </button>`).join('');
+
+$('#grid').innerHTML = PROJECTS.filter(p => !p.main).map(p => `
   <button class="p-card" data-cat="${p.cat}" data-id="${p.id}">
-    <span class="p-tag">${esc(p.tag)}</span>
+    ${p.img ? `<div class="p-thumb"><img src="${SHOT + p.img}" alt="" loading="lazy"></div>` : ''}
+    <span class="p-tag">${esc(p.period)}</span>
     <h3>${esc(p.title)}</h3>
-    <p>${esc(p.summary)}</p>
-    <span class="p-badge">${esc(p.badge)}</span>
-    <span class="p-more">자세히 보기 →</span>
+    <p>${esc(p.sub)}</p>
+    ${p.award ? `<span class="p-badge">${esc(p.award)}</span>` : ''}
+    <div class="mini-tags">${p.stack.slice(0, 3).map(s => `<span>${esc(s)}</span>`).join('')}</div>
   </button>`).join('');
 
 $('#timeline').innerHTML = '<span class="fill" id="tFill"></span>' + TIMELINE.map(i => `
@@ -114,27 +291,33 @@ $('#filters').addEventListener('click', e => {
 /* ===== 모달 ===== */
 const modal = $('#modal');
 let lastFocus;
+const block = (h, items) => items && items.length ? `<div class="m-block"><h4>${h}</h4><ul>${items.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : '';
 function openModal(id) {
   const p = PROJECTS.find(x => x.id === id);
-  $('#mMeta').textContent = p.tag;
+  $('#mMeta').textContent = [p.period, p.org, p.award].filter(Boolean).join(' · ');
   $('#mTitle').textContent = p.title;
   $('#mSum').textContent = p.summary;
   $('#mTags').innerHTML = p.stack.map(s => `<span>${esc(s)}</span>`).join('');
   $('#mBody').innerHTML =
-    `<div class="m-block"><h4>담당 역할</h4><ul>${p.role.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` +
-    (p.problem ? `<div class="m-block"><h4>문제</h4><p>${esc(p.problem)}</p></div><div class="m-block"><h4>해결</h4><p>${esc(p.solve)}</p></div>` : '') +
-    `<div class="m-ph">스크린샷 · 데모 링크 준비 중</div>`;
+    (p.img ? `<figure class="m-img"><img src="${SHOT + p.img}" alt="${esc(p.title)} 화면">${p.imgNote ? `<figcaption>${esc(p.imgNote)}</figcaption>` : ''}</figure>`
+      : p.flow ? `<div class="m-flow"><h4>데이터 흐름</h4>${visual(p)}</div>` : '') +
+    block('담당 역할', p.role) +
+    block('AI 결과 검증 방식', p.verify) +
+    (p.problem ? `<div class="m-block"><h4>문제</h4><p>${esc(p.problem)}</p></div><div class="m-block"><h4>해결 · 결과</h4><p>${esc(p.solve)}</p></div>` : '') +
+    (p.links ? `<div class="m-links">${p.links.map(([l, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join('')}</div>` : '');
   lastFocus = document.activeElement;
   modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+  $('.sheet').scrollTop = 0;
   document.body.style.overflow = 'hidden';
   $('#mClose').focus();
 }
 function closeModal() {
+  if (!modal.classList.contains('open')) return;
   modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   if (lastFocus) lastFocus.focus();
 }
-$('#grid').addEventListener('click', e => { const c = e.target.closest('.p-card'); if (c) openModal(c.dataset.id); });
+$('#projects').addEventListener('click', e => { const c = e.target.closest('[data-id]'); if (c) openModal(c.dataset.id); });
 $('#mClose').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
@@ -167,7 +350,7 @@ const io = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   e.target.classList.add('in'); io.unobserve(e.target);
   $$('[data-count]', e.target).forEach(countUp);
-}), { threshold: .12 });
+}), { threshold: .08 });
 $$('.reveal').forEach(el => io.observe(el));
 
 const tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
