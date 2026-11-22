@@ -6,7 +6,7 @@
 const PROJECTS = [
   {
     id: 'catchup', main: true, cat: 'backend',
-    period: '2026.11', org: 'NEXT AI 교내 해커톤 · 개인 프로젝트', award: '🏆 장려상',
+    period: '2026.11', org: 'NEXT AI 교내 해커톤 · 개인 프로젝트', award: '장려상',
     title: 'CatchUp AI', sub: '회의 요구사항 ↔ GitHub 코드 구현 근거 검증 서비스',
     summary: '회의록·피드백에서 요구사항을 추출하고, 결정 변경 이력과 공개 GitHub 저장소의 실제 코드 근거를 연결해 구현 여부를 판정하는 AI 기반 검증 서비스입니다.',
     stack: ['Next.js', 'TypeScript', 'OpenAI API', 'GitHub REST API', 'Supabase Auth', 'PostgreSQL', 'RLS', 'Vercel', 'Playwright'],
@@ -195,7 +195,7 @@ const PROJECTS = [
     links: [['프로토타입', 'https://daisy-power-83395279.figma.site/'], ['GitHub', 'https://github.com/siren8289/MIDO']]
   },
   {
-    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', award: '🏆 최우수상',
+    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', award: '최우수상',
     title: 'earDream', sub: '시니어 맞춤형 디지털 학습 앱',
     summary: 'AI 진단, 챗봇 학습, 미션 수행, 보상 흐름으로 시니어의 디지털 기기 사용을 돕는 학습 앱 기획입니다. 개발 전공 3명, 디자인 전공 2명이 참여했습니다.',
     stack: ['Figma', 'Notion', 'IA', 'User Flow', 'Prototype'],
@@ -217,19 +217,94 @@ const TIMELINE = [
   { d: '2024.03 ~ 2027.02', t: '한양여자대학교 빅데이터과', r: '재학중 · 3.98 / 4.5', p: '' }
 ];
 
-// [아이콘, 제목, 칩 스타일(solid|soft|plain), 항목]
-const SKILLS = [
-  ['⚙️', '백엔드', 'solid', ['Java', 'Spring Boot', 'Spring Security', 'JWT', 'JSP', 'REST API', 'JUnit']],
-  ['🗄️', '데이터베이스', 'soft', ['PostgreSQL', 'MySQL', 'SQL', 'Supabase (Auth · RLS)']],
-  ['🖥️', '프론트엔드 · 앱', 'soft', ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Kotlin', 'Jetpack Compose']],
-  ['📐', '설계 문서', 'soft', ['PRD', 'IA', 'ERD', 'API 명세서', '화면설계서']],
-  ['🔧', '도구', 'soft', ['Git', 'GitHub', 'Eclipse', 'Vercel', 'Cursor', 'Figma', 'Notion']],
-  ['🤖', 'AI', 'soft', ['OpenAI API', 'ChatGPT', 'Codex', 'Claude', 'Gemini']],
-  ['🤝', '협업', 'plain', ['브랜치 전략 정리', '충돌 해결', '팀 간 조율']]
+/* ===== 기술: 분야별로 꼭 필요한 것만, 누르면 근거가 나온다 =====
+   SKILL_GROUPS: [분야, [[보이는 이름, 근거 키], ...]]
+   EVIDENCE[키]: [[프로젝트 id, 무엇을 했나, 어떻게 확인했나], ...] */
+const SKILL_GROUPS = [
+  ['백엔드', [['Java', 'java'], ['Spring Boot', 'boot'], ['Spring Security · JWT', 'security'], ['JUnit', 'junit'], ['REST API', 'rest'], ['JSP', 'java']]],
+  ['데이터', [['PostgreSQL', 'pg'], ['MySQL', 'mysql'], ['Supabase', 'supa'], ['ERD 설계', 'erd']]],
+  ['화면', [['React · TypeScript', 'react'], ['Next.js', 'next'], ['Kotlin', 'kotlin'], ['React Native', 'rn']]],
+  ['협업 · AI', [['Git 협업', 'git'], ['PRD · IA', 'plan'], ['OpenAI API', 'ai'], ['AI 코드 검증', 'aiCheck']]]
 ];
+const SKILL_ETC = '그 외 도구 · Eclipse, Vercel, Cursor, Figma, Notion, ChatGPT, Claude, Gemini';
+const EVIDENCE = {
+  boot: [
+    ['binteum', '백엔드 공통 기반 셋업 · 프로필 · 필수 환경변수 검증', 'SecurityConfigTest 13개, JwtTokenProviderTest 5개'],
+    ['haengdong', '주행 기록 · 센서 데이터 조회 API 연동, 서비스 로직과 응답 코드 수정', 'MySQL 저장 결과와 앱 화면 표시를 직접 테스트'],
+    ['trenda', 'Spring Boot 기반 백엔드 구현 참여', '데이터베이스 구조 검토']
+  ],
+  security: [
+    ['binteum', 'JwtTokenProvider(토큰 생성 · 서명·만료 검증), JwtAuthenticationFilter, 경로별 권한(공개 · USER · ADMIN)', '401·403을 ProblemDetail + code 공통 규격으로 통일, SecurityConfigTest 13개로 경로별 권한 확인']
+  ],
+  junit: [
+    ['binteum', '보안 설정 테스트 18개, PoC 단계 혼잡도 제보 테스트', '정상 등록, 60분 내 중복 제보, 토큰 검증 실패 상황 확인']
+  ],
+  java: [
+    ['sion', 'Java/JSP로 관리자 로그인 · 로그아웃, 세션 종료, 비로그인 접근 차단', '회사 피드백으로 관할 구역 화면 수정'],
+    ['binteum', 'Java 21 · Spring Boot 공통 보안 기반', 'JUnit 테스트 18개']
+  ],
+  rest: [
+    ['catchup', 'Next.js 서버 API: 문서 추출 → 요구사항 추출 → 변경 비교 → 코드 조회 → 판정', 'AI 인용을 서버에서 실제 원본과 대조'],
+    ['haengdong', '앱 · 관리자 웹은 Spring Boot API만 호출하는 구조, API Mapping 정리', '이벤트 요약 방식과 응답 구조를 팀원과 검토'],
+    ['pivot', 'API 명세서 작성 참여, Spring Boot와 FastAPI 책임 분리', '']
+  ],
+  pg: [
+    ['sion', '고객 · 청구 · 입금 ERD, PK/FK 제약조건, JSP 연동', '담당자 피드백으로 고객번호 중심 구조로 재설계'],
+    ['catchup', 'Supabase PostgreSQL에 사용자별 리포트 저장 · 조회 · 삭제', 'RLS 정책 auth.uid() = user_id로 본인 기록만 접근'],
+    ['trenda', '백엔드 데이터베이스 구조 검토', '']
+  ],
+  mysql: [
+    ['haengdong', '센서 · 주행 데이터 저장 결과 확인', '위험 단계 · 거리 정보가 화면에 정상 표시되는지 테스트']
+  ],
+  supa: [
+    ['catchup', 'Supabase Auth 이메일 로그인, 리포트 저장 · 조회 · 삭제', 'RLS로 사용자별 접근 제한'],
+    ['glin', 'Supabase DB 구조 정리와 데이터베이스 연동', '']
+  ],
+  erd: [
+    ['sion', '상수도 관리 ERD · SQL 테이블 설계', '고객번호 중심으로 재설계'],
+    ['pivot', 'Simulation Session · Scenario · Run · Result 중심 ERD v4', ''],
+    ['glin', '문서 · 요약 · evidence 중심 ERD', ''],
+    ['haengdong', 'ERD 요구사항 · 화면별 기능/데이터 정의서', '']
+  ],
+  react: [
+    ['haengdong', 'React · TypeScript 관리자 웹 대시보드와 위험 이벤트 조회 화면', ''],
+    ['meme', 'React · Vite로 담당 화면 UI 구현, 개발 파트 총괄', ''],
+    ['minimo', 'React로 목록 · 상세 · 등록 화면 구현, 컴포넌트 분리', '']
+  ],
+  next: [
+    ['catchup', 'Next.js · TypeScript 반응형 웹과 서버 API', '자동 테스트 147개 · tsc · ESLint 통과']
+  ],
+  kotlin: [
+    ['haengdong', 'Kotlin · Jetpack Compose로 주행 화면, 위험 단계 알림, 주행 기록 조회', '']
+  ],
+  rn: [
+    ['eco', 'Expo · React Native 학생 앱 Home · 캐릭터 성장 화면', ''],
+    ['maumm', 'React Native 담당 페이지 구현, 반복 UI 컴포넌트 분리', '']
+  ],
+  git: [
+    ['binteum', 'Git 컨벤션 · 브랜치명 규칙 · PR 템플릿, PR 머지 관리', ''],
+    ['sion', '기능별 브랜치 · 작업 전 pull · dev 기준 머지 흐름 정리, 충돌 해결 지원', '계획보다 일찍 통합 완료'],
+    ['meme', '브랜치 관리와 코드 병합', '']
+  ],
+  plan: [
+    ['pivot', 'PRD Archive, 사용자 · 관리자 IA, 기능 · 비기능 요구사항', ''],
+    ['eardream', '페르소나, 주요 기능 흐름, IA', '공모전 최우수상'],
+    ['mido', '문제 정의, PRD, 사용자 흐름, 프로토타입', '인사이트톤 본선 진출']
+  ],
+  ai: [
+    ['catchup', 'OpenAI API로 요구사항 추출 · 회의 변경 탐지 · 코드 비교', '']
+  ],
+  aiCheck: [
+    ['catchup', 'AI가 만든 문서 · 코드 인용을 서버에서 실제 원본과 대조, 확인 안 되면 근거에서 제외', '주석이나 import만으로 구현 완료로 판단하지 않는 보수적 규칙'],
+    ['binteum', 'ChatGPT · Codex로 작성한 코드를 직접 검토 · 수정', 'JUnit으로 정상 · 예외 상황 확인']
+  ]
+};
+// 자격증: [이름, 취득, 발급처, 정식 명칭, 내용]
 const CERTS = [
-  ['AI-900', '2026.05', 'Microsoft'],
-  ['데이터분석 준전문가', '2025.03', '한국데이터산업진흥원']
+  ['AI-900', '2026.05', 'Microsoft', 'Microsoft Certified: Azure AI Fundamentals',
+    'AI·머신러닝 기본 개념과 컴퓨터 비전, 자연어 처리, 생성형 AI 등 Azure AI 서비스의 이해를 확인하는 Microsoft 공인 자격입니다.'],
+  ['데이터분석 준전문가', '2025.03', '한국데이터산업진흥원', 'ADsP (Advanced Data Analytics Semi-Professional)',
+    '데이터 이해, 데이터 분석 기획, 데이터 분석(통계 기초) 영역을 다루는 국가공인 자격입니다.']
 ];
 
 /* ===== 렌더링 ===== */
@@ -249,7 +324,7 @@ $('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
   <button class="f-card" data-id="${p.id}">
     <div class="f-vis">${visual(p)}</div>
     <div class="f-body">
-      <span class="p-tag">${String(i + 1).padStart(2, '0')} · ${esc(p.period)}${p.award ? ` · <em>${esc(p.award)}</em>` : ''}</span>
+      <span class="p-tag">${esc(p.period)}${p.award ? ` · <em>${esc(p.award)}</em>` : ''}</span>
       <h3>${esc(p.title)}</h3>
       <p class="f-sub">${esc(p.sub)}</p>
       <ul class="f-points">${p.points.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
@@ -276,10 +351,39 @@ $('#timeline').innerHTML = '<span class="fill" id="tFill"></span>' + TIMELINE.ma
     ${i.p ? `<p>${esc(i.p)}</p>` : ''}
   </li>`).join('');
 
-$('#skillGrid').innerHTML = SKILLS.map(([ico, n, style, list]) =>
-  `<div class="s-group"><h3><i>${ico}</i>${n}</h3><div class="tags ${style}">${list.map(x => `<span>${esc(x)}</span>`).join('')}</div></div>`).join('') +
-  `<div class="s-group"><h3><i>📜</i>자격증</h3><div class="certs">${CERTS.map(([t, d, o]) =>
-    `<div class="cert"><span class="medal">🏅</span><b>${esc(t)}</b><small>${esc(o)} · ${esc(d)}</small></div>`).join('')}</div></div>`;
+$('#skillGrid').innerHTML = SKILL_GROUPS.map(([g, items]) =>
+  `<div class="sk-row"><h3>${g}</h3><div class="sk-items">${items.map(([n, k]) =>
+    `<button type="button" data-key="${k}" data-name="${esc(n)}" aria-pressed="false">${esc(n)}</button>`).join('')}</div></div>`).join('');
+$('#skillEtc').textContent = SKILL_ETC;
+$('#certList').innerHTML = CERTS.map(([t, d, o], i) =>
+  `<button type="button" class="sk-cert" data-cert="${i}" aria-pressed="false"><b>${esc(t)}</b><small>${esc(o)} · ${esc(d)}</small></button>`).join('');
+
+const evTitle = $('#evTitle'), evBody = $('#evBody');
+const pressOnly = el => $$('#skills [aria-pressed]').forEach(b => b.setAttribute('aria-pressed', b === el));
+function showSkill(btn) {
+  pressOnly(btn);
+  evTitle.textContent = `${btn.dataset.name}로 한 일`;
+  evBody.innerHTML = `<ol class="evidence">${EVIDENCE[btn.dataset.key].map(([id, what, how], i) => {
+    const p = PROJECTS.find(x => x.id === id);
+    return `<li style="animation-delay:${i * 70}ms"><b>${esc(p.title)}</b><span>${esc(what)}</span>${how ? `<span class="how">확인 · ${esc(how)}</span>` : ''}<button type="button" class="ev-open" data-id="${id}">프로젝트 자세히 →</button></li>`;
+  }).join('')}</ol>`;
+}
+function showCert(btn) {
+  const [t, d, o, full, desc] = CERTS[+btn.dataset.cert];
+  pressOnly(btn);
+  evTitle.textContent = t;
+  evBody.innerHTML = `<div class="cert-detail"><dl>
+    <div><dt>정식 명칭</dt><dd>${esc(full)}</dd></div>
+    <div><dt>발급</dt><dd>${esc(o)}</dd></div>
+    <div><dt>취득</dt><dd>${esc(d)}</dd></div></dl><p>${esc(desc)}</p></div>`;
+}
+$('#skills').addEventListener('click', e => {
+  const s = e.target.closest('[data-key]'), c = e.target.closest('[data-cert]'), o = e.target.closest('.ev-open');
+  if (o) return openModal(o.dataset.id);
+  if (s) showSkill(s); else if (c) showCert(c); else return;
+  if (matchMedia('(max-width:900px)').matches) $('.sk-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+showSkill($('#skillGrid [data-key="boot"]'));
 
 /* ===== 필터 ===== */
 $('#filters').addEventListener('click', e => {
@@ -292,8 +396,15 @@ $('#filters').addEventListener('click', e => {
 const modal = $('#modal');
 let lastFocus;
 const block = (h, items) => items && items.length ? `<div class="m-block"><h4>${h}</h4><ul>${items.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : '';
+let curIdx = -1;
 function openModal(id) {
-  const p = PROJECTS.find(x => x.id === id);
+  const wasOpen = modal.classList.contains('open');
+  curIdx = PROJECTS.findIndex(x => x.id === id);
+  const p = PROJECTS[curIdx], n = PROJECTS.length;
+  const prev = PROJECTS[(curIdx - 1 + n) % n], next = PROJECTS[(curIdx + 1) % n];
+  $('#mCount').textContent = `${curIdx + 1} / ${n}`;
+  $('#mPrevT').textContent = prev.title; $('#mPrev').setAttribute('aria-label', `이전 프로젝트: ${prev.title}`);
+  $('#mNextT').textContent = next.title; $('#mNext').setAttribute('aria-label', `다음 프로젝트: ${next.title}`);
   $('#mMeta').textContent = [p.period, p.org, p.award].filter(Boolean).join(' · ');
   $('#mTitle').textContent = p.title;
   $('#mSum').textContent = p.summary;
@@ -305,12 +416,31 @@ function openModal(id) {
     block('AI 결과 검증 방식', p.verify) +
     (p.problem ? `<div class="m-block"><h4>문제</h4><p>${esc(p.problem)}</p></div><div class="m-block"><h4>해결 · 결과</h4><p>${esc(p.solve)}</p></div>` : '') +
     (p.links ? `<div class="m-links">${p.links.map(([l, u]) => `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join('')}</div>` : '');
+  const sheet = $('.sheet');
+  sheet.scrollTop = 0;
+  if (wasOpen) { sheet.classList.remove('swap'); void sheet.offsetWidth; sheet.classList.add('swap'); return; }
   lastFocus = document.activeElement;
   modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
-  $('.sheet').scrollTop = 0;
   document.body.style.overflow = 'hidden';
   $('#mClose').focus();
 }
+const step = d => openModal(PROJECTS[(curIdx + d + PROJECTS.length) % PROJECTS.length].id);
+$('#mPrev').addEventListener('click', () => step(-1));
+$('#mNext').addEventListener('click', () => step(1));
+addEventListener('keydown', e => {
+  if (!modal.classList.contains('open')) return;
+  if (e.key === 'ArrowLeft') step(-1);
+  if (e.key === 'ArrowRight') step(1);
+});
+// 휴대폰: 좌우로 밀어서 넘기기
+let tx = null, ty = null;
+modal.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+modal.addEventListener('touchend', e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1);
+  tx = null;
+}, { passive: true });
 function closeModal() {
   if (!modal.classList.contains('open')) return;
   modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
