@@ -1,6 +1,6 @@
 :root{
-  --bg:#f6f9fd; --surface:#fff; --ink:#1c2a40; --sub:#5b6b82; --line:#dfe7f1;
-  --blue:#4a6fa5; --blue-d:#2f4b7c; --blue-s:#e4edf8; --blue-t:#cddcf0;
+  --bg:#f6f9fd; --surface:#fff; --ink:#1c2a40; --sub:#4f5f78; --line:#dfe7f1;
+  --blue:#3d6199; --blue-d:#2f4b7c; --blue-s:#e4edf8; --blue-t:#cddcf0;
   --r:18px; --shadow:0 10px 30px rgba(47,75,124,.08);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -61,7 +61,7 @@ h2{font-size:clamp(26px,4vw,38px);line-height:1.3;font-weight:800;letter-spacing
 .card p{font-size:14px;color:var(--sub)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;padding:34px 12px;background:var(--blue);border-radius:var(--r);color:#fff;text-align:center}
 .stats b{display:block;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.02em}
-.stats small{opacity:.85;font-size:13px}
+.stats small{font-size:13px}
 
 /* projects */
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 28px}
