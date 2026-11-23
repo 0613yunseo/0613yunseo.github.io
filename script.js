@@ -27,6 +27,7 @@ const PROJECTS = [
     ],
     problem: '캡스톤과 현장실습에서 회의에서 정한 기능이 이후 어떻게 바뀌었는지, 실제 코드에 반영됐는지 확인하려면 문서와 GitHub 파일을 일일이 대조해야 했습니다.',
     solve: '요구사항을 출처와 함께 구조화하고 실제 코드 근거로 점검하는 흐름을 만들었습니다. 최종 QA에서 자동 테스트 147개, TypeScript·ESLint, 프로덕션 빌드, 1440·768·390px 반응형을 확인했습니다. 계정 간 교차 접근 차단 통합 테스트는 남은 과제입니다.',
+    flow: ['회의록 · 피드백 입력 (PDF · DOCX · TXT)', 'AI 요구사항 추출 · 회의 변경 비교', 'GitHub 공개 저장소 코드 조회', '구현 판정 · 원본 인용 서버 검증', '리포트 · Supabase 저장 (RLS)'],
     img: 'catchup.jpg', imgNote: '메인 화면',
     gallery: [['catchup-analyze.jpg', '새 분석: 문서 입력, GitHub 저장소, 단계별 진행 상태 화면'], ['catchup-compare.jpg', '새 분석: 1주차·5주차 회의록 변경 비교 결과 8건과 GitHub 저장소 조회 (2026.11.23 QA, Gemini)'], ['catchup-report.jpg', '분석 리포트: 요구사항 8건 판정 요약과 회의 변경 유형 (2026.11.23 QA)'], ['catchup-evidence.jpg', '분석 리포트: 판정 이유와 GitHub 원본으로 확인한 코드 근거 lib/validate.ts (2026.11.23 QA)']],
     links: [['서비스', 'https://catchup-ai-liart.vercel.app/'], ['발표자료 PDF', 'assets/docs/catchup-ai-presentation.pdf'], ['GitHub', 'https://github.com/0613yunseo/catchup-ai']]
@@ -47,21 +48,19 @@ const PROJECTS = [
       'FK 순서에 맞춘 더미 데이터 설계: 고객 100 · 계량기 230 · 검침 1,000 · 청구 500 · 납부 400 · 연체 70건 (완납 · 부분납 · 미납 혼합)',
       '대표님 요구사항(성명 · 금액 · 부족액 · 입금 이력)에 맞춰 부족액 조회 SQL과 화면 흐름 정리',
       'PostgreSQL 데이터를 JSP 화면에 연동 (고객 목록 · 상세, 청구, 입금, 연체, 관할 구역 관리)',
-      '기본설계서 → 상세설계서 → 코딩 → PCL(단위 테스트) 순서로 진행, 페이지별 상세설계서 작성과 테스트 항목별 화면 캡처 증빙'
+      '기본설계서 → 상세설계서 → 코딩 → PCL(단위 테스트) 순서로 진행, 담당 화면(로그인 · 관할구역관리)의 기본 · 상세설계서 작성',
+      'PCL 체크리스트 작성: 로그인 10항목(비밀번호 표시 전환, CapsLock 경고, 미입력 · 인증 실패 메시지, 세션 저장), 관할구역관리 20항목(메뉴 이동, 구역 · 고객명 검색, 리셋, 결과 건수, 페이지네이션), 팀원 교차 테스트까지 전 항목 OK와 화면 캡처 증빙'
     ],
     problem: '처음에는 모든 정보를 관리하려고 테이블과 속성을 많이 만들어 관계가 복잡해졌습니다. 스키마 초안에는 없는 컬럼(meter_id)에 UNIQUE 제약이 걸려 생성 스크립트가 실패했고, 전화번호를 INTEGER로 두어 앞자리 0이 사라지는 문제도 있었습니다. 팀원 대부분은 GitHub 협업 경험이 적어 충돌이 잦았습니다.',
     solve: '담당자 피드백으로 불필요한 테이블을 정리하고 고객 정보를 중심으로 청구·입금 내역을 분리해 고객번호로 연결했습니다. 잘못된 제약을 지우고 전화번호를 VARCHAR로 바꾼 뒤 FK 순서대로 데이터를 넣었습니다. 기능별 브랜치, 작업 전 pull, dev 브랜치 기준 머지 흐름을 정리해 계획보다 일찍 통합을 마쳤습니다.',
-    flow: ['관리자 로그인 (JSP · 세션)', '관할 동 고객 조회', '청구 · 납부 · 부족액 계산', 'PostgreSQL (테이블 6개)'],
-    // 화면: 팀 저장소 dev 브랜치(최종본)를 로컬 Tomcat · PostgreSQL에서 실행해 캡처. 고객은 노션 데이터, 청구 · 입금은 데모 값.
-    img: 'sion-deposit.jpg', imgNote: '入金管理: 청구별 완납 · 연체 상태와 입금 처리 (로컬 재현 · 데모 데이터)',
+    // 담당 화면(로그인 · 관할 구역 관리)의 흐름
+    flow: ['로그인 화면 (JSP)', '관리자 인증 · 세션 (Administrator 테이블)', '관할 구역 · 고객명 조회 (customers)', 'PostgreSQL'],
+    // 화면: 팀 저장소 dev 브랜치(최종본)를 로컬 Tomcat · PostgreSQL에서 실행해 캡처. 고객은 노션 데이터.
+    img: 'sion-district.jpg', imgNote: '管轄区域管理: 관할 구역 · 고객명으로 고객 조회 (담당 화면, 로컬 재현 · 데모 데이터)',
     gallery: [
-      ['sion-login.jpg', '관리자 로그인: 사번 · 비밀번호를 관리자 테이블과 대조'],
-      ['sion-customers.jpg', '顧客一覧: 고객 목록과 이번 달 사용량, 이름 검색'],
-      ['sion-district.jpg', '管轄区域管理: 관할 구역 · 고객명으로 조회'],
-      ['sion-billing.jpg', '請求履歴: 고객별 최신 청구 금액과 청구서 조회'],
-      ['sion-overdue.jpg', '延滞管理: 기준일까지 누적 청구 − 입금 합계로 미납 기간 · 금액 계산']
+      ['sion-login.jpg', '관리자 로그인: 사번 · 비밀번호를 관리자 테이블과 대조 (담당 화면)']
     ],
-    links: [['GitHub', 'https://github.com/daaaaahye/sion']]
+    links: [['데모 (담당 화면)', 'demo/sion/'], ['상세설계서 · 로그인', 'assets/docs/sion-login-design.xlsx'], ['상세설계서 · 관할구역관리', 'assets/docs/sion-district-design.xlsx'], ['GitHub', 'https://github.com/daaaaahye/sion']]
   },
   {
     id: 'haengdong', main: true, cat: 'backend',
@@ -325,7 +324,7 @@ function openModal(id, via = 'card') {
   $('#mTags').innerHTML = p.stack.map(s => `<span>${esc(s)}</span>`).join('');
   $('#mBody').innerHTML =
     (p.img ? `<figure class="m-img"><img src="${SHOT + p.img}" alt="${esc(p.title)} 화면">${p.imgNote ? `<figcaption>${esc(p.imgNote)}</figcaption>` : ''}</figure>` + (p.gallery ? p.gallery.map(([f, c]) => `<figure class="m-img"><img src="${SHOT + f}" alt="${esc(p.title)} ${esc(c)}" loading="lazy"><figcaption>${esc(c)}</figcaption></figure>`).join('') : '')
-      : p.flow ? `<div class="m-flow"><h4>데이터 흐름</h4>${visual(p)}</div>` : '') +
+      : '') + (p.flow ? `<div class="m-flow"><h4>데이터 흐름</h4><ol class="flow">${p.flow.map(f => `<li>${esc(f)}</li>`).join('')}</ol></div>` : '') +
     block('담당 역할', p.role) +
     block('AI 결과 검증 방식', p.verify) +
     (p.problem ? `<div class="m-block"><h4>문제</h4><p>${esc(p.problem)}</p></div><div class="m-block"><h4>해결 · 결과</h4><p>${esc(p.solve)}</p></div>` : '') +

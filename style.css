@@ -170,7 +170,7 @@ footer{text-align:center;padding:28px;font-size:14px;color:var(--sub);background
 .m-block p{font-size:15px}
 .m-img{margin:0 0 6px;border-radius:14px;overflow:hidden;background:var(--bg)}
 .m-img img{display:block;width:100%;height:auto}
-.m-img+.m-img{margin-top:14px}
+.m-img+.m-img,.m-img+.m-flow{margin-top:14px}
 .m-img figcaption{font-size:13px;color:var(--sub);padding:6px 12px;background:var(--bg)}
 .m-flow{background:var(--blue-s);border-radius:14px;padding:16px 0 4px}
 .m-flow h4{font-size:14px;color:var(--blue-d);text-align:center}
