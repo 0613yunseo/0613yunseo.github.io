@@ -1,0 +1,392 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>水道料金の請求書 - SMART WATER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * { box-sizing: border-box; }
+        body{
+          margin:0;
+          font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+          background:#f5f6f8;
+          color:#111827;
+        }
+
+        /* ===============================
+           ✅ TOP NAVBAR (통일본)
+           =============================== */
+        .navbar{
+          height:56px;
+          background:#243646;
+          display:flex;
+          align-items:center;
+          padding:0 22px;
+          gap:26px;
+          position:relative;
+          flex-wrap: nowrap;
+        }
+
+        .navbar-brand{
+          font-weight:800;
+          font-size:16px;
+          color:#2aa3ff;
+          text-decoration:none;
+          white-space:nowrap;
+
+          display:inline-flex;
+          align-items:center;
+          gap:8px;
+          flex:0 0 auto;
+        }
+
+        .nav-links{
+          list-style:none;
+          display:flex;
+          align-items: stretch;
+          gap:22px;
+          margin:0;
+          padding:0;
+          position:relative;
+
+          flex-wrap: nowrap;
+          white-space: nowrap;
+          min-width: 0;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scrollbar-width: none;
+        }
+        .nav-links::-webkit-scrollbar { display:none; }
+
+        .nav-links li{
+          display:flex;
+          align-items:center;
+          flex:0 0 auto;
+        }
+
+        .nav-links a{
+          color:#cbd5e1;
+          text-decoration:none;
+          font-size:13px;
+          font-weight:600;
+          white-space:nowrap;
+          position:relative;
+
+          height:56px;
+          display:flex;
+          align-items:center;
+          padding:0 4px;
+          line-height:1;
+        }
+
+        .nav-links a:hover{ color:#ffffff; }
+
+        .nav-links a.is-active::after{
+          content:"";
+          position:absolute;
+          left:0;
+          bottom:10px;
+          width:100%;
+          height:2px;
+          background:#2aa3ff;
+          border-radius:2px;
+        }
+
+        /* ===============================
+           ✅ ADMIN (통일본 + dropdown)
+           =============================== */
+        .admin-area{
+          margin-left:auto;
+          position:relative;
+          display:flex;
+          align-items:center;
+          gap:10px;
+          flex:0 0 auto;
+        }
+
+        .admin-text{
+          display:flex;
+          flex-direction:column;
+          align-items:flex-end;
+          line-height:1.2;
+          margin:0;
+          transform:none;
+          white-space:nowrap;
+        }
+
+        .admin-name{
+          font-size:12px;
+          font-weight:700;
+          color:#e5edf5;
+        }
+
+        .admin-id{
+          font-size:11px;
+          color:#9fb0c3;
+        }
+
+        .admin-icon{
+          width:30px;
+          height:30px;
+          border-radius:50%;
+          background:rgba(255,255,255,.92);
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          box-shadow:0 0 0 2px rgba(255,255,255,.28);
+          user-select:none;
+          cursor:pointer;
+        }
+
+        .admin-icon svg{ width:18px; height:18px; opacity:.85; }
+
+        .admin-dropdown{
+          position:absolute;
+          top:100%;
+          right:0;
+          margin-top:6px;
+          min-width:120px;
+          background:rgba(255,255,255,.72);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border:1px solid rgba(229,231,235,.9);
+          border-radius:12px;
+          box-shadow:0 16px 36px rgba(0,0,0,.18);
+          display:flex;
+          flex-direction:column;
+          overflow:hidden;
+          z-index:1000;
+
+          opacity:0;
+          visibility:hidden;
+          pointer-events:none;
+          transform: translateY(6px);
+          transition: opacity .16s ease, transform .16s ease, visibility .16s;
+        }
+
+        .admin-dropdown.open{
+          opacity:1;
+          visibility:visible;
+          pointer-events:auto;
+          transform: translateY(0);
+        }
+
+        .admin-area:hover .admin-dropdown{
+          opacity:1;
+          visibility:visible;
+          pointer-events:auto;
+          transform: translateY(0);
+        }
+
+        .dropdown-item{
+          padding:9px 12px;
+          font-size:13px;
+          color:#111827;
+          text-decoration:none;
+          white-space:nowrap;
+        }
+
+        .dropdown-item:hover{ background: rgba(17,24,39,.06); }
+
+        .dropdown-sep{
+          height:1px;
+          background: rgba(17,24,39,.08);
+          margin:2px 0;
+        }
+
+        .dropdown-item.logout{
+          color:#b91c1c;
+          font-weight:800;
+        }
+
+        /* ===============================
+           PAGE CONTENT (기존 청구서 스타일 유지)
+           =============================== */
+        .main-container{
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 56px);
+        }
+
+        .bill-wrapper{
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .btn-print-area{
+            position: absolute;
+            top: -50px;
+            right: 0;
+        }
+
+        .btn-print{
+            background-color: #2aa3ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-print:hover { background-color: #1f8fe6; }
+
+        .bill-card{
+            width: 100%;
+            background: white;
+            padding: 60px 50px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .bill-title { font-size: 32px; font-weight: 900; margin-bottom: 10px; color: #000; letter-spacing: 2px; }
+        .bill-date { font-size: 14px; color: #666; margin-bottom: 40px; }
+        .bill-divider { border-top: 2px solid #243646; margin-bottom: 30px; }
+
+        .info-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .info-table th, .info-table td { border: 1px solid #dee2e6; padding: 15px; text-align: left; font-size: 15px; }
+        .info-table th { background-color: #f8f9fa; width: 30%; font-weight: 900; color: #495057; }
+        .info-table td { background-color: #fff; width: 70%; }
+
+        .total-wrapper { text-align: right; margin-top: 20px; padding: 20px; background: #fff5f5; border-radius: 8px; margin-bottom: 40px; }
+        .total-label { font-size: 16px; color: #444; margin-right: 10px; }
+        .total-text { font-size: 26px; font-weight: 900; color: #e74c3c; }
+
+        .footer-notice { text-align: left; font-weight: 900; font-size: 13px; color: #777; line-height: 1.8; border-top: 1px dashed #ccc; padding-top: 20px; }
+
+        @media print {
+            body { background: white; }
+            .navbar, .btn-print-area { display: none !important; }
+            .main-container { padding: 0; min-height: auto; }
+            .bill-card { box-shadow: none; border: 1px solid #eee; padding: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ 통일 메뉴바 적용 (밑줄: 첫번째 메뉴) -->
+    <nav class="navbar">
+      <a href="main.html" class="navbar-brand">💧 SMART WATER JP</a>
+
+      <ul class="nav-links" id="navLinks">
+        <!-- ✅ 여기만 is-active (첫번째 메뉴 밑줄) -->
+        <li><a href="customer_list.html" class="is-active">顧客一覧</a></li>
+        <li><a href="district.html">管轄区域管理</a></li>
+        <li><a href="overdue_list.html">延滞管理</a></li>
+        <li><a href="#">入金管理</a></li>
+        <li><a href="billing_list.html">請求管理</a></li>
+      </ul>
+
+      <div class="admin-area" id="adminArea">
+        <div class="admin-text">
+          <div class="admin-name">管理者 デモ 様</div>
+          <div class="admin-id">社員番号 A1001</div>
+        </div>
+
+        <div class="admin-icon">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 12c2.76 0 5-2.46 5-5.5S14.76 1 12 1 7 3.46 7 6.5 9.24 12 12 12Z"
+                  stroke="#111827" stroke-width="1.6"/>
+            <path d="M3 23c0-4.2 4-7.6 9-7.6s9 3.4 9 7.6"
+                  stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="admin-dropdown" id="adminDropdown">
+          <a href="admin.html" class="dropdown-item">設定</a>
+          <div class="dropdown-sep"></div>
+          <a href="index.html" class="dropdown-item logout">ログアウト</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-container">
+        
+            <div class="bill-wrapper">
+                <div class="btn-print-area">
+                    <button class="btn-print" onclick="window.print()">
+                        🖨️ 請求書を印刷
+                    </button>
+                </div>
+
+                <div class="bill-card">
+                    <div class="bill-title">水道料金の請求書</div>
+                    <div class="bill-date"></div>
+
+                    <div class="bill-divider"></div>
+
+                    <table class="info-table">
+                        <tr>
+                            <th>お名前</th>
+                            <td>渡辺 直樹 様</td>
+                        </tr>
+                        <tr>
+                            <th>お客様番号 (ID)</th>
+                            <td>C03306</td>
+                        </tr>
+                        <tr>
+                            <th>ご住所</th>
+                            <td>東京都中央区日本橋1-2-3</td>
+                        </tr>
+                        <tr>
+                            <th>今月分のご請求額</th>
+                            <td>3,200円</td>
+                        </tr>
+                        <tr>
+                            <th>未払金額</th>
+                            <td>13,600円</td>
+                        </tr>
+                    </table>
+
+                    <div class="total-wrapper">
+                        <span class="total-label">お支払い合計額</span>
+                        <span class="total-text">16,800円</span>
+                    </div>
+
+                    <div class="footer-notice">
+                        * お振込先: 三菱UFJ銀行 110-123-456789 (smart water)<br>
+                        * お問い合わせ: 02-120 (水道お客さまセンター)
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+    <script>
+      // ✅ ADMIN DROPDOWN (click to toggle)
+      (function () {
+        const adminArea = document.getElementById("adminArea");
+        const adminDropdown = document.getElementById("adminDropdown");
+        if (!adminArea || !adminDropdown) return;
+
+        adminArea.addEventListener("click", function (e) {
+          e.stopPropagation();
+          adminDropdown.classList.toggle("open");
+        });
+
+        adminDropdown.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+
+        document.addEventListener("click", function () {
+          adminDropdown.classList.remove("open");
+        });
+      })();
+    </script>
+
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f2d3d;color:#fff;font:13px/1.5 sans-serif;text-align:center;padding:8px 12px">정적 데모 · 로컬 실행 화면을 저장한 것이라 검색 · 입금 처리 등 서버 기능은 동작하지 않아요 · 데이터는 데모 값 · <a href="https://0613yunseo.github.io/#projects" style="color:#9fd0ff">포트폴리오로 돌아가기</a></div><script>window.openPaymentPopup=function(){alert('デモ用の静的ページのため、この操作は利用できません。')};document.querySelectorAll('form').forEach(function(f){if(f.id!=='loginForm'){f.addEventListener('submit',function(e){e.preventDefault();var st=f.querySelector('select[name=status]');if(st){location.href='deposit__status_'+(st.value==='all'?'all':st.value)+'_page_1.html';return}alert('デモ用の静的ページのため、この操作は利用できません。')})}});</script></body>
+</html>

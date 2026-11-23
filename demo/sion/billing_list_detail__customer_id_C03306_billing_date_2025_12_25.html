@@ -1,0 +1,75 @@
+
+
+
+<div style='color:red; background:#fff; padding:20px; border:2px solid red; margin:20px;'>
+
+<h3>에러 발생:</h3>
+
+<p>conversion to class java.lang.Long from int4 not supported</p>
+
+<pre>
+
+org.postgresql.util.PSQLException: conversion to class java.lang.Long from int4 not supported
+
+	at org.postgresql.jdbc.PgResultSet.getObject(PgResultSet.java:3912)
+
+	at org.postgresql.jdbc.PgResultSet.getObject(PgResultSet.java:4074)
+
+	at org.apache.jsp.billing_005flist_005fdetail_jsp._jspService(billing_005flist_005fdetail_jsp.java:208)
+
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:64)
+
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:428)
+
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:330)
+
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:281)
+
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128)
+
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+
+	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:654)
+
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+</pre>
+
+</div>
+

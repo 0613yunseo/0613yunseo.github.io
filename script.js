@@ -61,7 +61,7 @@ const PROJECTS = [
       ['sion-district.jpg', '管轄区域管理: 관할 구역 · 고객명으로 고객 조회 (담당 화면)'],
       ['sion-login.jpg', '관리자 로그인: 사번 · 비밀번호를 관리자 테이블과 대조 (담당 화면)']
     ],
-    links: [['데모 (담당 화면)', 'demo/sion/'], ['상세설계서 · 로그인', 'assets/docs/sion-login-design.xlsx'], ['상세설계서 · 관할구역관리', 'assets/docs/sion-district-design.xlsx'], ['GitHub', 'https://github.com/daaaaahye/sion']]
+    links: [['데모 (전체 화면)', 'demo/sion/'], ['상세설계서 · 로그인', 'assets/docs/sion-login-design.xlsx'], ['상세설계서 · 관할구역관리', 'assets/docs/sion-district-design.xlsx'], ['GitHub', 'https://github.com/daaaaahye/sion']]
   },
   {
     id: 'haengdong', main: true, cat: 'backend',

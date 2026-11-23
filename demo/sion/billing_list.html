@@ -1,0 +1,468 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>請求履歴 - SMART WATER</title>
+  <link rel="stylesheet" href="css/billing_list.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+    <a href="main.html" class="navbar-brand">💧 SMART WATER JP</a>
+
+	    <ul class="nav-links" id="navLinks">
+	      <li><a href="customer_list.html">顧客一覧</a></li>
+	      <li><a href="district.html">管轄区域管理</a></li>
+	      <li><a href="overdue_list.html">延滞管理</a></li>
+	      <li><a href="#">入金管理</a></li>
+	      <li><a href="billing_list.html">請求管理</a></li>
+	    </ul>
+
+		<div class="admin-area" id="adminArea">
+	      <div class="admin-text">
+	        <div class="admin-name">管理者 デモ 様</div>
+	        <div class="admin-id">社員番号 A1001</div>
+		</div>
+	
+	    <div class="admin-icon">
+	        <svg viewBox="0 0 24 24" fill="none">
+	          <path d="M12 12c2.76 0 5-2.46 5-5.5S14.76 1 12 1 7 3.46 7 6.5 9.24 12 12 12Z"
+	                stroke="#111827" stroke-width="1.6"/>
+	          <path d="M3 23c0-4.2 4-7.6 9-7.6s9 3.4 9 7.6"
+	                stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+	        </svg>
+	    </div>
+	
+	    <div class="admin-dropdown" id="adminDropdown">
+			<a href="admin.html" class="dropdown-item">設定</a>
+	        <div class="dropdown-sep"></div>
+	        <a href="index.html" class="dropdown-item logout">ログアウト</a>
+	    </div>
+	    </div>
+	</nav>
+
+
+
+  <div class="main-container">
+    <div class="content-card">
+    	<div class="title">🗓️ 請求履歴</div>
+        <div class="search-notice">
+        ※ 名前と日付を入力してください。<br>
+        ※日付を選択しない場合、お客様の最新請求書が照会されます。
+        </div>
+
+      <div class="customer">
+        <form class="search-box" method="get" action="billing_list.jsp">
+          <div class="search-group">
+            <label>顧客の照会</label>
+            <input type="text" name="name" value="" placeholder="名前を入力してください">
+          </div>
+
+          <div class="search-group">
+            <label>日付を選択してください</label>
+            <select name="billing_date" onchange="this.form.submit()">
+              <option value="">日付を選択してください</option>
+
+              
+              <option value="2025-08-25" >2025-08-25</option>
+              
+              <option value="2025-09-25" >2025-09-25</option>
+              
+              <option value="2025-10-25" >2025-10-25</option>
+              
+              <option value="2025-11-25" >2025-11-25</option>
+              
+              <option value="2025-12-25" >2025-12-25</option>
+              
+            </select>
+          </div>
+
+          <button type="submit" class="btn-search">検索</button>
+          <button type="button" class="btn-reset" onclick="location.href='billing_list.html'">初期化</button>
+        </form>
+
+        <table class="billing-table">
+          <thead>
+            <tr>
+              <th>会員番号</th>
+              <th>顧客名</th>
+              <th>請求額</th>
+              <th>通知書の照会</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td>C03301</td>
+              <td>佐藤 健</td>
+              <td>¥ 3,100</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03301_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03302</td>
+              <td>鈴木 美咲</td>
+              <td>¥ 5,400</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03302_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03303</td>
+              <td>高橋 翔</td>
+              <td>¥ 3,100</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03303_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03304</td>
+              <td>田中 彩</td>
+              <td>¥ 3,700</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03304_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03306</td>
+              <td>渡辺 直樹</td>
+              <td>¥ 3,200</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03306_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03307</td>
+              <td>山本 由美</td>
+              <td>¥ 5,700</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03307_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03308</td>
+              <td>中村 拓海</td>
+              <td>¥ 5,600</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03308_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03311</td>
+              <td>吉田 恒一</td>
+              <td>¥ 3,000</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03311_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03312</td>
+              <td>山田 未来</td>
+              <td>¥ 4,900</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03312_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03313</td>
+              <td>佐々木 健太</td>
+              <td>¥ 3,200</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03313_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03316</td>
+              <td>井上 恒一</td>
+              <td>¥ 6,700</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03316_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03317</td>
+              <td>木村 玲奈</td>
+              <td>¥ 3,800</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03317_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03321</td>
+              <td>森 健一</td>
+              <td>¥ 7,100</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03321_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03322</td>
+              <td>阿部 由香</td>
+              <td>¥ 3,700</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03322_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>C03323</td>
+              <td>池田 拓也</td>
+              <td>¥ 6,200</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_C03323_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04401</td>
+              <td>佐藤 恒一</td>
+              <td>¥ 5,300</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04401_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04402</td>
+              <td>鈴木 由美</td>
+              <td>¥ 4,900</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04402_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04403</td>
+              <td>高橋 拓海</td>
+              <td>¥ 2,900</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04403_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04406</td>
+              <td>渡辺 直樹</td>
+              <td>¥ 3,500</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04406_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04407</td>
+              <td>山本 玲奈</td>
+              <td>¥ 3,300</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04407_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04408</td>
+              <td>中村 拓真</td>
+              <td>¥ 3,700</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04408_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04411</td>
+              <td>吉田 恒一</td>
+              <td>¥ 6,100</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04411_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04412</td>
+              <td>山田 未来</td>
+              <td>¥ 6,700</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04412_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04416</td>
+              <td>井上 恒一</td>
+              <td>¥ 5,900</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04416_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04417</td>
+              <td>木村 美穂</td>
+              <td>¥ 5,600</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04417_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04421</td>
+              <td>森 健一</td>
+              <td>¥ 4,900</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04421_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04422</td>
+              <td>阿部 由香</td>
+              <td>¥ 3,900</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04422_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>D04423</td>
+              <td>池田 拓也</td>
+              <td>¥ 3,800</td>
+              <td>
+                <button class="btn-view" type="button"
+                  onclick="location.href='billing_list_detail__customer_id_D04423_billing_date_2025_12_25.html'">
+                  通知書の照会
+                </button>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const adminArea = document.getElementById("adminArea");
+    const adminDropdown = document.getElementById("adminDropdown");
+
+    adminArea.addEventListener("click", function (e) {
+      e.stopPropagation();
+      adminDropdown.classList.toggle("open");
+    });
+
+    adminDropdown.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+
+    document.addEventListener("click", function () {
+      adminDropdown.classList.remove("open");
+    });
+  </script>
+
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f2d3d;color:#fff;font:13px/1.5 sans-serif;text-align:center;padding:8px 12px">정적 데모 · 로컬 실행 화면을 저장한 것이라 검색 · 입금 처리 등 서버 기능은 동작하지 않아요 · 데이터는 데모 값 · <a href="https://0613yunseo.github.io/#projects" style="color:#9fd0ff">포트폴리오로 돌아가기</a></div><script>window.openPaymentPopup=function(){alert('デモ用の静的ページのため、この操作は利用できません。')};document.querySelectorAll('form').forEach(function(f){if(f.id!=='loginForm'){f.addEventListener('submit',function(e){e.preventDefault();var st=f.querySelector('select[name=status]');if(st){location.href='deposit__status_'+(st.value==='all'?'all':st.value)+'_page_1.html';return}alert('デモ用の静的ページのため、この操作は利用できません。')})}});</script></body>
+</html>
+
+

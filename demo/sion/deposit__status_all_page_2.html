@@ -1,0 +1,291 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>入金管理 - SMART WATER JP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#f5f6f8; color:#111827; }
+
+    /* ✅ TOP NAVBAR */
+    .navbar{ height:56px; background:#243646; display:flex; align-items:center; padding:0 22px; gap:26px; position:relative; }
+    .navbar-brand{ font-weight:800; font-size:16px; color:#2aa3ff; text-decoration:none; }
+    .nav-links{ list-style:none; display:flex; gap:22px; margin:0; padding:0; }
+    .nav-links a{ color:#cbd5e1; text-decoration:none; font-size:13px; font-weight:600; height:56px; display:flex; align-items:center; padding:0 4px; position:relative; }
+    .nav-links li:nth-child(4) a::after{ content:""; position:absolute; left:0; bottom:10px; width:100%; height:2px; background:#2aa3ff; border-radius:2px; }
+
+    /* ✅ ADMIN AREA */
+    .admin-area{ margin-left:auto; position:relative; display:flex; align-items:center; gap:10px; cursor:pointer; }
+    .admin-text{ display:flex; flex-direction:column; align-items:flex-end; white-space:nowrap; }
+    .admin-name{ font-size:12px; font-weight:700; color:#e5edf5; }
+    .admin-id{ font-size:11px; color:#9fb0c3; }
+    .admin-icon{ width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.92); display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px rgba(255,255,255,.28); }
+    .admin-dropdown{ position:absolute; top:100%; right:0; margin-top:6px; min-width:120px; background:rgba(255,255,255,0.72); backdrop-filter: blur(10px); border:1px solid rgba(229,231,235,0.9); border-radius:12px; box-shadow:0 16px 36px rgba(0,0,0,0.18); display:none; flex-direction:column; z-index:1000; overflow:hidden; }
+    .admin-dropdown.open{ display:flex; }
+    .dropdown-item{ padding:9px 12px; font-size:13px; color:#111827; text-decoration:none; }
+    .dropdown-item:hover{ background: rgba(17,24,39,0.06); }
+
+    /* ✅ PAGE CONTENT & ACCENT BAR */
+    .main-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+    .content-card { background: white; border-radius: 10px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+    .title { display: flex; align-items: center; padding-left: 15px; position: relative; font-size: 22px; font-weight: bold; color: #111827; margin-bottom: 12px; }
+    .title::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 22px; background-color: #2aa3ff; border-radius: 0; }
+
+    /* ✅ 案内ボックス */
+    .search-notice { 
+        margin: 10px 0 14px; padding: 12px 14px; border-radius: 10px; 
+        background: #f1f6fb; border: 1px solid #dbe9f6; font-size: 13px; 
+        line-height: 1.55; color: #4b5563; 
+    }
+
+    /* ✅ SEARCH BOX & BUTTON */
+    .search-box { margin-bottom: 25px; background: #f8f9fa; padding: 20px; border-radius: 8px; display: flex; align-items: center; gap: 15px; }
+    .status-select { height: 40px; padding: 0 12px; border: 1px solid #d1d5db; border-radius: 6px; background: white; min-width: 180px; font-size: 14px; }
+    .btn-search { background: #2aa3ff; color: white; border: none; padding: 0 25px; border-radius: 6px; height: 40px; font-weight: bold; cursor: pointer; transition: background 0.2s; font-size: 14px; }
+    .btn-search:hover { background: #1f8fe6; }
+
+    /* ✅ TABLE STYLE */
+    .list-table { width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; }
+    .list-table th { background: #f9fafb; padding: 14px; font-size: 14px; border: 1px solid #e5e7eb; color: #4b5563; }
+    .list-table td { padding: 14px; border: 1px solid #e5e7eb; font-size: 14px; text-align: center; }
+    .name-highlight { color: #111827; font-weight: bold; }
+    .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+    
+    /* 🛠️ 入金ボタン: 灰色スタイル */
+    .btn-deposit { 
+        cursor: pointer; border: 1px solid #d1d5db; background-color: #f3f4f6; 
+        border-radius: 4px; padding: 5px 12px; font-size: 13px; color: #374151; 
+        font-weight: 500; transition: background 0.2s; 
+    }
+    .btn-deposit:hover { background-color: #e5e7eb; }
+
+    /* ✅ PAGINATION & JUMP BOX */
+    .pagination { display: flex; justify-content: center; align-items: center; margin-top: 30px; gap: 4px; }
+    .page-item { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid #e5e7eb; background: white; text-decoration: none; color: #374151; border-radius: 4px; font-size: 14px; }
+    .page-item.active { background: #2aa3ff; color: white; border-color: #2aa3ff; font-weight: bold; }
+    .jump-box { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; font-size: 14px; }
+    .jump-input { width: 50px; height: 32px; text-align: center; border: 1px solid #d1d5db; border-radius: 4px; }
+    .btn-jump { background: #2aa3ff; color: white; border: none; border-radius: 4px; padding: 6px 12px; cursor: pointer; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="main.html" class="navbar-brand">💧 SMART WATER JP</a>
+    <ul class="nav-links">
+      <li><a href="customer_list.html">顧客一覧</a></li>
+      <li><a href="district.html">管轄区域管理</a></li>
+      <li><a href="overdue_list.html">延滞管理</a></li>
+      <li><a href="#">入金管理</a></li>
+      <li><a href="billing_list.html">請求管理</a></li>
+    </ul>
+    <div class="admin-area" id="adminArea">
+      <div class="admin-text">
+        <div class="admin-name">管理者 デモ 様</div>
+        <div class="admin-id">社員番号 A1001</div>
+      </div>
+      <div class="admin-icon">
+        <svg viewBox="0 0 24 24" width="18" fill="none" stroke="currentColor"><path d="M12 12c2.76 0 5-2.46 5-5.5S14.76 1 12 1 7 3.46 7 6.5 9.24 12 12 12Z" stroke-width="1.6"/><path d="M3 23c0-4.2 4-7.6 9-7.6s9 3.4 9 7.6" stroke-width="1.6"/></svg>
+      </div>
+      <div class="admin-dropdown" id="adminDropdown">
+        <a href="admin.html" class="dropdown-item">設定</a>
+        <div class="dropdown-sep"></div>
+        <a href="index.html" class="dropdown-item logout">ログアウト</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="content-card">
+      <div class="title">💰 入金管理</div>
+      <div class="search-notice">
+        ※ 入金状態を選択して検索してください。<br>
+        ※ 未納および延滞状態の顧客のみ入金処理が可能です。
+      </div>
+
+      <form class="search-box" method="get">
+        <select name="status" class="status-select">
+          <option value="all" selected>全体</option>
+          <option value="unpaid" >未納</option>
+          <option value="overdue" >延滞</option>
+          <option value="paid" >完納</option>
+        </select>
+        <button type="submit" class="btn-search">検索</button>
+      </form>
+
+      <table class="list-table">
+        <thead>
+          <tr><th>氏名</th><th>請求日</th><th>請求金額</th><th>入金状態</th><th>処理</th></tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td><span class="name-highlight">山本 由美</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥5,700</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">山田 未来</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥4,900</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">山田 未来</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥6,700</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">木村 玲奈</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥3,800</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">木村 美穂</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥5,600</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">森 健一</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥7,100</td>
+            <td>
+              <span class="badge" style="background:#ffdada; color:#e74c3c;">延滞</span>
+              
+            </td>
+            <td><button onclick="openPaymentPopup('C03321', '2025-12-25', 7100)" class="btn-deposit">入金</button></td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">森 健一</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥4,900</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">池田 拓也</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥6,200</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">池田 拓也</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥3,800</td>
+            <td>
+              <span class="badge" style="background:#ffdada; color:#e74c3c;">延滞</span>
+              
+            </td>
+            <td><button onclick="openPaymentPopup('D04423', '2025-12-25', 3800)" class="btn-deposit">入金</button></td>
+          </tr>
+          
+          <tr>
+            <td><span class="name-highlight">渡辺 直樹</span> 様</td>
+            <td>2025-12-25</td>
+            <td style="text-align:right; padding-right:20px;">¥3,200</td>
+            <td>
+              <span class="badge" style="background:#e8faf0; color:#2ecc71;">完納</span>
+              
+            </td>
+            <td>-</td>
+          </tr>
+          
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <a href="deposit__status_all_page_1.html" class="page-item">«</a>
+        <a href="deposit__status_all_page_1.html" class="page-item">‹</a>
+        
+          <a href="deposit__status_all_page_1.html" class="page-item ">1</a>
+        
+          <a href="deposit__status_all_page_2.html" class="page-item active">2</a>
+        
+          <a href="deposit__status_all_page_3.html" class="page-item ">3</a>
+        
+          <a href="deposit__status_all_page_4.html" class="page-item ">4</a>
+        
+          <a href="deposit__status_all_page_5.html" class="page-item ">5</a>
+        
+        <a href="deposit__status_all_page_3.html" class="page-item">›</a>
+        <a href="#" class="page-item">»</a>
+      </div>
+
+      <div class="jump-box">
+        <input type="number" id="jumpPageInput" class="jump-input" value="2">
+        <span style="color: #6b7280;">/ 53</span>
+        <button onclick="goToPage()" class="btn-jump">移動</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const adminArea = document.getElementById("adminArea");
+    const adminDropdown = document.getElementById("adminDropdown");
+    adminArea.addEventListener("click", (e) => { e.stopPropagation(); adminDropdown.classList.toggle("open"); });
+    document.addEventListener("click", () => adminDropdown.classList.remove("open"));
+    
+    function goToPage() {
+      let pageNum = document.getElementById("jumpPageInput").value;
+      if (pageNum > 0 && pageNum <= 53) {
+        location.href = "?status=all&page=" + pageNum;
+      } else { alert("1から53の数字を入力してください。"); }
+    }
+
+    function openPaymentPopup(customerId, billingDate, totalAmount) {
+      let inputAmount = prompt("入金する金額を入力してください。\n(請求額: " + totalAmount + "円)", "");
+      if (inputAmount === null) return;
+      if (parseInt(inputAmount) !== totalAmount) {
+        alert("金額が一致しません。金額をもう一度確認してください。");
+        return;
+      }
+      if (confirm("入金を完了しますか？")) {
+        location.href = "pay_action.jsp?id=" + customerId + "&date=" + billingDate + "&amount=" + inputAmount;
+      }
+    }
+  </script>
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f2d3d;color:#fff;font:13px/1.5 sans-serif;text-align:center;padding:8px 12px">정적 데모 · 로컬 실행 화면을 저장한 것이라 검색 · 입금 처리 등 서버 기능은 동작하지 않아요 · 데이터는 데모 값 · <a href="https://0613yunseo.github.io/#projects" style="color:#9fd0ff">포트폴리오로 돌아가기</a></div><script>window.openPaymentPopup=function(){alert('デモ用の静的ページのため、この操作は利用できません。')};document.querySelectorAll('form').forEach(function(f){if(f.id!=='loginForm'){f.addEventListener('submit',function(e){e.preventDefault();var st=f.querySelector('select[name=status]');if(st){location.href='deposit__status_'+(st.value==='all'?'all':st.value)+'_page_1.html';return}alert('デモ用の静的ページのため、この操作は利用できません。')})}});</script></body>
+</html>

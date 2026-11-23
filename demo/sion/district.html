@@ -289,14 +289,14 @@
 <body>
 
   <nav class="navbar">
-    <a href="district.html" class="navbar-brand">💧 SMART WATER JP</a>
+    <a href="main.html" class="navbar-brand">💧 SMART WATER JP</a>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#" onclick="alert('デモでは担当画面（ログイン・管轄区域管理）のみ公開しています。');return false;">顧客一覧</a></li>
+      <li><a href="customer_list.html">顧客一覧</a></li>
       <li><a href="district.html">管轄区域管理</a></li>
-      <li><a href="#" onclick="alert('デモでは担当画面（ログイン・管轄区域管理）のみ公開しています。');return false;">延滞管理</a></li>
-      <li><a href="#" onclick="alert('デモでは担当画面（ログイン・管轄区域管理）のみ公開しています。');return false;">入金管理</a></li>
-      <li><a href="#" onclick="alert('デモでは担当画面（ログイン・管轄区域管理）のみ公開しています。');return false;">請求管理</a></li>
+      <li><a href="overdue_list.html">延滞管理</a></li>
+      <li><a href="#">入金管理</a></li>
+      <li><a href="billing_list.html">請求管理</a></li>
     </ul>
 
     <div class="admin-area" id="adminArea">
@@ -315,7 +315,7 @@
       </div>
 
       <div class="admin-dropdown" id="adminDropdown">
-        <a href="#" onclick="alert('デモでは担当画面（ログイン・管轄区域管理）のみ公開しています。');return false;" class="dropdown-item">設定</a>
+        <a href="admin.html" class="dropdown-item">設定</a>
         <div class="dropdown-sep"></div>
         <a href="index.html" class="dropdown-item logout">ログアウト</a>
       </div>
@@ -521,5 +521,5 @@
     });
   </script>
 
-<div style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f2d3d;color:#fff;font:13px/1.5 sans-serif;text-align:center;padding:8px 12px">정적 데모 · 담당 화면(로그인 · 관할구역관리)만 공개 · 데이터는 데모 값 · <a href="https://0613yunseo.github.io/#projects" style="color:#9fd0ff">포트폴리오로 돌아가기</a></div></body>
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f2d3d;color:#fff;font:13px/1.5 sans-serif;text-align:center;padding:8px 12px">정적 데모 · 로컬 실행 화면을 저장한 것이라 검색 · 입금 처리 등 서버 기능은 동작하지 않아요 · 데이터는 데모 값 · <a href="https://0613yunseo.github.io/#projects" style="color:#9fd0ff">포트폴리오로 돌아가기</a></div><script>window.openPaymentPopup=function(){alert('デモ用の静的ページのため、この操作は利用できません。')};document.querySelectorAll('form').forEach(function(f){if(f.id!=='loginForm'){f.addEventListener('submit',function(e){e.preventDefault();var st=f.querySelector('select[name=status]');if(st){location.href='deposit__status_'+(st.value==='all'?'all':st.value)+'_page_1.html';return}alert('デモ用の静的ページのため、この操作は利用できません。')})}});</script></body>
 </html>
