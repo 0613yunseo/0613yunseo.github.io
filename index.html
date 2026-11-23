@@ -15,7 +15,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <div class="progress" id="progress"></div>
@@ -104,28 +104,19 @@
 
     <!-- CAREER -->
     <section id="career" class="reveal">
-      <p class="label">Career Timeline</p>
-      <h2>경험의 흐름으로 보는 성장 과정</h2>
-      <ol class="timeline" id="timeline"></ol>
+      <p class="label">Career</p>
+      <h2>학력 · 활동 · 자격 · 수상</h2>
+      <div class="more" id="more"></div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" class="reveal">
-      <p class="label">Skills &amp; Tools</p>
-      <h2>사용해 본 기술</h2>
-      <p class="sec-desc">기술이나 자격증을 누르면 어디서 무엇을 만들고 어떻게 확인했는지 옆에 나옵니다.</p>
-      <div class="sk">
-        <div class="sk-l">
-          <div id="skillGrid"></div>
-          <p class="sk-etc" id="skillEtc"></p>
-          <h3 class="sk-h">자격증</h3>
-          <div class="sk-certs" id="certList"></div>
-        </div>
-        <div class="sk-panel" aria-live="polite">
-          <h3 id="evTitle"></h3>
-          <div id="evBody"></div>
-        </div>
+      <p class="label">Skills</p>
+      <div class="sk-head">
+        <h2>기술 스택</h2>
+        <p>프로젝트에서 직접 사용한 기술</p>
       </div>
+      <dl class="stack" id="stack"></dl>
     </section>
 
     <!-- CONTACT -->
@@ -157,6 +148,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

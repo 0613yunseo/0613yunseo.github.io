@@ -205,106 +205,34 @@ const PROJECTS = [
   }
 ];
 
-const TIMELINE = [
-  { d: '2026.11', t: 'NEXT AI 교내 해커톤', r: '장려상 · CatchUp AI', p: '회의 요구사항과 GitHub 코드 구현 근거를 연결하는 검증 서비스 개발.' },
-  { d: '2026.05', t: 'Microsoft AI-900', r: '자격증', p: '' },
-  { d: '2026.03 ~ 진행중', t: '캡스톤디자인 · 동행가드', r: '백엔드 연동 · 앱 · 관리자 웹', p: 'Spring Boot REST API 연동, Kotlin 앱과 React 관리자 웹 개발.' },
-  { d: '2026.01', t: '시온정보시스템 (일본 현장실습)', r: '인턴 · 6인 팀', p: 'JSP·PostgreSQL 상수도 관리 웹 시스템. 로그인·관할 구역 관리, ERD 설계.' },
-  { d: '2025.12 ~ 2026.01', t: '어치브모먼트 블레이버스 인사이트톤', r: '본선 진출 · Mido', p: '' },
-  { d: '2025.11', t: '지역혁신 인재양성 연합 페스티벌 공모전', r: '최우수상 · earDream', p: '한국정보통신보안윤리학회' },
-  { d: '2025.03 ~ 현재', t: '한양여자대학교 창업동아리', r: '팀원 → 부회장', p: 'VALUABLE(2025) · 뉴클리어스(2026). 웹·앱 서비스 개발, 개발 파트 진행과 협업 조율.' },
-  { d: '2025.03', t: '데이터분석 준전문가', r: '한국데이터산업진흥원', p: '' },
-  { d: '2024.03 ~ 2027.02', t: '한양여자대학교 빅데이터과', r: '재학중 · 3.98 / 4.5', p: '' }
+/* 학력 · 활동 · 자격 · 수상: [구분, [[기간, 내용], ...]] — 그룹마다 최신이 위 */
+const MORE = [
+  ['Education', [
+    ['2024.03 ~ 2027.02', '한양여자대학교 빅데이터과 재학 (학점 3.98 / 4.5)']
+  ]],
+  ['Experience', [
+    ['2026.03 ~', '캡스톤디자인 · 동행가드 — Spring Boot REST API 연동, Kotlin 앱 · React 관리자 웹'],
+    ['2026.01', '시온정보시스템 일본 현장실습 — JSP · PostgreSQL 상수도 관리 웹 시스템 (6인 팀)'],
+    ['2025.03 ~', '한양여자대학교 창업동아리 VALUABLE · 뉴클리어스 — 팀원에서 부회장']
+  ]],
+  ['Certificate', [
+    ['2026.05', 'Microsoft AI-900 (Azure AI Fundamentals)'],
+    ['2025.03', '데이터분석 준전문가 (ADsP) · 한국데이터산업진흥원']
+  ]],
+  ['Award', [
+    ['2026.11', 'NEXT AI 교내 해커톤 장려상 · CatchUp AI'],
+    ['2025.12 ~ 2026.01', '어치브모먼트 블레이버스 인사이트톤 본선 진출 · Mido'],
+    ['2025.11', '지역혁신 인재양성 연합 페스티벌 공모전 최우수상 · earDream']
+  ]]
 ];
 
-/* ===== 기술: 분야별로 꼭 필요한 것만, 누르면 근거가 나온다 =====
-   SKILL_GROUPS: [분야, [[보이는 이름, 근거 키], ...]]
-   EVIDENCE[키]: [[프로젝트 id, 무엇을 했나, 어떻게 확인했나], ...] */
-const SKILL_GROUPS = [
-  ['백엔드', [['Java', 'java'], ['Spring Boot', 'boot'], ['Spring Security · JWT', 'security'], ['JUnit', 'junit'], ['REST API', 'rest'], ['JSP', 'java']]],
-  ['데이터', [['PostgreSQL', 'pg'], ['MySQL', 'mysql'], ['Supabase', 'supa'], ['ERD 설계', 'erd']]],
-  ['화면', [['React · TypeScript', 'react'], ['Next.js', 'next'], ['Kotlin', 'kotlin'], ['React Native', 'rn']]],
-  ['협업 · AI', [['Git 협업', 'git'], ['PRD · IA', 'plan'], ['OpenAI API', 'ai'], ['AI 코드 검증', 'aiCheck']]]
-];
-const SKILL_ETC = '그 외 도구 · Eclipse, Vercel, Cursor, Figma, Notion, ChatGPT, Claude, Gemini';
-const EVIDENCE = {
-  boot: [
-    ['binteum', '백엔드 공통 기반 셋업 · 프로필 · 필수 환경변수 검증', 'SecurityConfigTest 13개, JwtTokenProviderTest 5개'],
-    ['haengdong', '주행 기록 · 센서 데이터 조회 API 연동, 서비스 로직과 응답 코드 수정', 'MySQL 저장 결과와 앱 화면 표시를 직접 테스트'],
-    ['trenda', 'Spring Boot 기반 백엔드 구현 참여', '데이터베이스 구조 검토']
-  ],
-  security: [
-    ['binteum', 'JwtTokenProvider(토큰 생성 · 서명·만료 검증), JwtAuthenticationFilter, 경로별 권한(공개 · USER · ADMIN)', '401·403을 ProblemDetail + code 공통 규격으로 통일, SecurityConfigTest 13개로 경로별 권한 확인']
-  ],
-  junit: [
-    ['binteum', '보안 설정 테스트 18개, PoC 단계 혼잡도 제보 테스트', '정상 등록, 60분 내 중복 제보, 토큰 검증 실패 상황 확인']
-  ],
-  java: [
-    ['sion', 'Java/JSP로 관리자 로그인 · 로그아웃, 세션 종료, 비로그인 접근 차단', '회사 피드백으로 관할 구역 화면 수정'],
-    ['binteum', 'Java 21 · Spring Boot 공통 보안 기반', 'JUnit 테스트 18개']
-  ],
-  rest: [
-    ['catchup', 'Next.js 서버 API: 문서 추출 → 요구사항 추출 → 변경 비교 → 코드 조회 → 판정', 'AI 인용을 서버에서 실제 원본과 대조'],
-    ['haengdong', '앱 · 관리자 웹은 Spring Boot API만 호출하는 구조, API Mapping 정리', '이벤트 요약 방식과 응답 구조를 팀원과 검토'],
-    ['pivot', 'API 명세서 작성 참여, Spring Boot와 FastAPI 책임 분리', '']
-  ],
-  pg: [
-    ['sion', '고객 · 청구 · 입금 ERD, PK/FK 제약조건, JSP 연동', '담당자 피드백으로 고객번호 중심 구조로 재설계'],
-    ['catchup', 'Supabase PostgreSQL에 사용자별 리포트 저장 · 조회 · 삭제', 'RLS 정책 auth.uid() = user_id로 본인 기록만 접근'],
-    ['trenda', '백엔드 데이터베이스 구조 검토', '']
-  ],
-  mysql: [
-    ['haengdong', '센서 · 주행 데이터 저장 결과 확인', '위험 단계 · 거리 정보가 화면에 정상 표시되는지 테스트']
-  ],
-  supa: [
-    ['catchup', 'Supabase Auth 이메일 로그인, 리포트 저장 · 조회 · 삭제', 'RLS로 사용자별 접근 제한'],
-    ['glin', 'Supabase DB 구조 정리와 데이터베이스 연동', '']
-  ],
-  erd: [
-    ['sion', '상수도 관리 ERD · SQL 테이블 설계', '고객번호 중심으로 재설계'],
-    ['pivot', 'Simulation Session · Scenario · Run · Result 중심 ERD v4', ''],
-    ['glin', '문서 · 요약 · evidence 중심 ERD', ''],
-    ['haengdong', 'ERD 요구사항 · 화면별 기능/데이터 정의서', '']
-  ],
-  react: [
-    ['haengdong', 'React · TypeScript 관리자 웹 대시보드와 위험 이벤트 조회 화면', ''],
-    ['meme', 'React · Vite로 담당 화면 UI 구현, 개발 파트 총괄', ''],
-    ['minimo', 'React로 목록 · 상세 · 등록 화면 구현, 컴포넌트 분리', '']
-  ],
-  next: [
-    ['catchup', 'Next.js · TypeScript 반응형 웹과 서버 API', '자동 테스트 147개 · tsc · ESLint 통과']
-  ],
-  kotlin: [
-    ['haengdong', 'Kotlin · Jetpack Compose로 주행 화면, 위험 단계 알림, 주행 기록 조회', '']
-  ],
-  rn: [
-    ['eco', 'Expo · React Native 학생 앱 Home · 캐릭터 성장 화면', ''],
-    ['maumm', 'React Native 담당 페이지 구현, 반복 UI 컴포넌트 분리', '']
-  ],
-  git: [
-    ['binteum', 'Git 컨벤션 · 브랜치명 규칙 · PR 템플릿, PR 머지 관리', ''],
-    ['sion', '기능별 브랜치 · 작업 전 pull · dev 기준 머지 흐름 정리, 충돌 해결 지원', '계획보다 일찍 통합 완료'],
-    ['meme', '브랜치 관리와 코드 병합', '']
-  ],
-  plan: [
-    ['pivot', 'PRD Archive, 사용자 · 관리자 IA, 기능 · 비기능 요구사항', ''],
-    ['eardream', '페르소나, 주요 기능 흐름, IA', '공모전 최우수상'],
-    ['mido', '문제 정의, PRD, 사용자 흐름, 프로토타입', '인사이트톤 본선 진출']
-  ],
-  ai: [
-    ['catchup', 'OpenAI API로 요구사항 추출 · 회의 변경 탐지 · 코드 비교', '']
-  ],
-  aiCheck: [
-    ['catchup', 'AI가 만든 문서 · 코드 인용을 서버에서 실제 원본과 대조, 확인 안 되면 근거에서 제외', '주석이나 import만으로 구현 완료로 판단하지 않는 보수적 규칙'],
-    ['binteum', 'ChatGPT · Codex로 작성한 코드를 직접 검토 · 수정', 'JUnit으로 정상 · 예외 상황 확인']
-  ]
-};
-// 자격증: [이름, 취득, 발급처, 정식 명칭, 내용]
-const CERTS = [
-  ['AI-900', '2026.05', 'Microsoft', 'Microsoft Certified: Azure AI Fundamentals',
-    'AI·머신러닝 기본 개념과 컴퓨터 비전, 자연어 처리, 생성형 AI 등 Azure AI 서비스의 이해를 확인하는 Microsoft 공인 자격입니다.'],
-  ['데이터분석 준전문가', '2025.03', '한국데이터산업진흥원', 'ADsP (Advanced Data Analytics Semi-Professional)',
-    '데이터 이해, 데이터 분석 기획, 데이터 분석(통계 기초) 영역을 다루는 국가공인 자격입니다.']
+/* 기술 스택: [분야, 기술] — 백엔드 위주 */
+const STACK = [
+  ['백엔드', 'Java · Spring Boot · Spring Security · JWT · JSP · JUnit'],
+  ['데이터베이스', 'PostgreSQL · MySQL · SQL · Supabase (Auth · RLS)'],
+  ['API · 설계', 'REST API · API 명세서 · ERD · PRD · IA'],
+  ['협업 · 배포', 'Git · GitHub · Eclipse · Vercel'],
+  ['AI 활용', 'OpenAI API · ChatGPT · Codex · Claude']
 ];
 
 /* ===== 렌더링 ===== */
@@ -343,47 +271,13 @@ $('#grid').innerHTML = PROJECTS.filter(p => !p.main).map(p => `
     <div class="mini-tags">${p.stack.slice(0, 3).map(s => `<span>${esc(s)}</span>`).join('')}</div>
   </button>`).join('');
 
-$('#timeline').innerHTML = '<span class="fill" id="tFill"></span>' + TIMELINE.map(i => `
-  <li class="t-item">
-    <span class="t-date">${esc(i.d)}</span>
-    <h3>${esc(i.t)}</h3>
-    <div class="t-role">${esc(i.r)}</div>
-    ${i.p ? `<p>${esc(i.p)}</p>` : ''}
-  </li>`).join('');
+$('#more').innerHTML = MORE.map(([g, rows]) => `
+  <div class="more-g">
+    <h3>${g}</h3>
+    <ul>${rows.map(([d, t]) => `<li><span class="when">${esc(d)}</span><span>${esc(t)}</span></li>`).join('')}</ul>
+  </div>`).join('');
 
-$('#skillGrid').innerHTML = SKILL_GROUPS.map(([g, items]) =>
-  `<div class="sk-row"><h3>${g}</h3><div class="sk-items">${items.map(([n, k]) =>
-    `<button type="button" data-key="${k}" data-name="${esc(n)}" aria-pressed="false">${esc(n)}</button>`).join('')}</div></div>`).join('');
-$('#skillEtc').textContent = SKILL_ETC;
-$('#certList').innerHTML = CERTS.map(([t, d, o], i) =>
-  `<button type="button" class="sk-cert" data-cert="${i}" aria-pressed="false"><b>${esc(t)}</b><small>${esc(o)} · ${esc(d)}</small></button>`).join('');
-
-const evTitle = $('#evTitle'), evBody = $('#evBody');
-const pressOnly = el => $$('#skills [aria-pressed]').forEach(b => b.setAttribute('aria-pressed', b === el));
-function showSkill(btn) {
-  pressOnly(btn);
-  evTitle.textContent = `${btn.dataset.name}로 한 일`;
-  evBody.innerHTML = `<ol class="evidence">${EVIDENCE[btn.dataset.key].map(([id, what, how], i) => {
-    const p = PROJECTS.find(x => x.id === id);
-    return `<li style="animation-delay:${i * 70}ms"><b>${esc(p.title)}</b><span>${esc(what)}</span>${how ? `<span class="how">확인 · ${esc(how)}</span>` : ''}<button type="button" class="ev-open" data-id="${id}">프로젝트 자세히 →</button></li>`;
-  }).join('')}</ol>`;
-}
-function showCert(btn) {
-  const [t, d, o, full, desc] = CERTS[+btn.dataset.cert];
-  pressOnly(btn);
-  evTitle.textContent = t;
-  evBody.innerHTML = `<div class="cert-detail"><dl>
-    <div><dt>정식 명칭</dt><dd>${esc(full)}</dd></div>
-    <div><dt>발급</dt><dd>${esc(o)}</dd></div>
-    <div><dt>취득</dt><dd>${esc(d)}</dd></div></dl><p>${esc(desc)}</p></div>`;
-}
-$('#skills').addEventListener('click', e => {
-  const s = e.target.closest('[data-key]'), c = e.target.closest('[data-cert]'), o = e.target.closest('.ev-open');
-  if (o) return openModal(o.dataset.id);
-  if (s) showSkill(s); else if (c) showCert(c); else return;
-  if (matchMedia('(max-width:900px)').matches) $('.sk-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-});
-showSkill($('#skillGrid [data-key="boot"]'));
+$('#stack').innerHTML = STACK.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
 
 /* ===== 필터 ===== */
 $('#filters').addEventListener('click', e => {
@@ -458,10 +352,6 @@ function onScroll() {
   const h = document.documentElement;
   bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
   nav.classList.toggle('scrolled', h.scrollTop > 10);
-  // 타임라인 선 채우기
-  const tl = $('#timeline'), r = tl.getBoundingClientRect();
-  const prog = Math.min(Math.max((innerHeight * .65 - r.top) / r.height, 0), 1);
-  $('#tFill').style.height = (prog * (r.height - 60)) + 'px';
 }
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
@@ -483,9 +373,6 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { threshold: .08 });
 $$('.reveal').forEach(el => io.observe(el));
 
-const tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
-  { rootMargin: '0px 0px -35% 0px' });
-$$('.t-item').forEach(el => tio.observe(el));
 
 function countUp(el) {
   const end = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
