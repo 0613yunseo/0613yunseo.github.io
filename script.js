@@ -279,10 +279,14 @@ $('#more').innerHTML = MORE.map(([g, rows]) => `
 
 $('#stack').innerHTML = STACK.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
 
+/* ===== GA 맞춤 이벤트 (배포 주소에서만 gtag가 있음) ===== */
+const track = (name, params = {}) => { if (typeof window.gtag === 'function') window.gtag('event', name, params); };
+
 /* ===== 필터 ===== */
 $('#filters').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   $$('#filters button').forEach(x => x.classList.toggle('on', x === b));
+  track('filter_select', { filter: b.textContent.trim() });
   $$('.p-card').forEach(c => c.classList.toggle('hide', b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f));
 });
 
@@ -291,10 +295,11 @@ const modal = $('#modal');
 let lastFocus;
 const block = (h, items) => items && items.length ? `<div class="m-block"><h4>${h}</h4><ul>${items.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : '';
 let curIdx = -1;
-function openModal(id) {
+function openModal(id, via = 'card') {
   const wasOpen = modal.classList.contains('open');
   curIdx = PROJECTS.findIndex(x => x.id === id);
   const p = PROJECTS[curIdx], n = PROJECTS.length;
+  track('open_project', { project_id: p.id, project_title: p.title, open_via: via });
   const prev = PROJECTS[(curIdx - 1 + n) % n], next = PROJECTS[(curIdx + 1) % n];
   $('#mCount').textContent = `${curIdx + 1} / ${n}`;
   $('#mPrevT').textContent = prev.title; $('#mPrev').setAttribute('aria-label', `이전 프로젝트: ${prev.title}`);
@@ -318,13 +323,13 @@ function openModal(id) {
   document.body.style.overflow = 'hidden';
   $('#mClose').focus();
 }
-const step = d => openModal(PROJECTS[(curIdx + d + PROJECTS.length) % PROJECTS.length].id);
+const step = (d, how = 'arrow') => openModal(PROJECTS[(curIdx + d + PROJECTS.length) % PROJECTS.length].id, `${how}_${d < 0 ? 'prev' : 'next'}`);
 $('#mPrev').addEventListener('click', () => step(-1));
 $('#mNext').addEventListener('click', () => step(1));
 addEventListener('keydown', e => {
   if (!modal.classList.contains('open')) return;
-  if (e.key === 'ArrowLeft') step(-1);
-  if (e.key === 'ArrowRight') step(1);
+  if (e.key === 'ArrowLeft') step(-1, 'key');
+  if (e.key === 'ArrowRight') step(1, 'key');
 });
 // 휴대폰: 좌우로 밀어서 넘기기
 let tx = null, ty = null;
@@ -332,11 +337,12 @@ modal.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.to
 modal.addEventListener('touchend', e => {
   if (tx === null) return;
   const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
-  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1);
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1, 'swipe');
   tx = null;
 }, { passive: true });
 function closeModal() {
   if (!modal.classList.contains('open')) return;
+  track('close_project', { project_id: PROJECTS[curIdx].id });
   modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   if (lastFocus) lastFocus.focus();
@@ -393,3 +399,18 @@ if (matchMedia('(hover:hover)').matches) {
   });
   $('#hero').addEventListener('mouseleave', () => photo.style.transform = '');
 }
+
+/* 섹션 도달: 화면 가운데에 들어온 섹션을 한 번씩 기록 */
+const seen = new Set();
+const sio = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting && !seen.has(e.target.id)) { seen.add(e.target.id); track('section_view', { section: e.target.id }); }
+}), { rootMargin: '-45% 0px -45% 0px' });
+['about', 'projects', 'career', 'skills', 'contact'].forEach(id => sio.observe($('#' + id)));
+
+/* 버튼 · 링크 클릭: 어디서 무엇을 눌렀는지 */
+document.addEventListener('click', e => {
+  const a = e.target.closest('a.btn, a[href^="mailto:"], .ap-btn');
+  if (!a) return;
+  const where = a.closest('.sheet') ? 'project_modal' : (a.closest('section') || {}).id || 'page';
+  track('cta_click', { label: a.textContent.replace('↗', '').trim(), location: where });
+});
