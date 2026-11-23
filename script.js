@@ -56,8 +56,9 @@ const PROJECTS = [
     // 담당 화면(로그인 · 관할 구역 관리)의 흐름
     flow: ['로그인 화면 (JSP)', '관리자 인증 · 세션 (Administrator 테이블)', '관할 구역 · 고객명 조회 (customers)', 'PostgreSQL'],
     // 화면: 팀 저장소 dev 브랜치(최종본)를 로컬 Tomcat · PostgreSQL에서 실행해 캡처. 고객은 노션 데이터.
-    img: 'sion-district.jpg', imgNote: '管轄区域管理: 관할 구역 · 고객명으로 고객 조회 (담당 화면, 로컬 재현 · 데모 데이터)',
+    img: 'sion-main.jpg', imgNote: '메인 화면: 전체 고객 수 · 체납 고객 수 요약 (로컬 재현 · 데모 데이터)',
     gallery: [
+      ['sion-district.jpg', '管轄区域管理: 관할 구역 · 고객명으로 고객 조회 (담당 화면)'],
       ['sion-login.jpg', '관리자 로그인: 사번 · 비밀번호를 관리자 테이블과 대조 (담당 화면)']
     ],
     links: [['데모 (담당 화면)', 'demo/sion/'], ['상세설계서 · 로그인', 'assets/docs/sion-login-design.xlsx'], ['상세설계서 · 관할구역관리', 'assets/docs/sion-district-design.xlsx'], ['GitHub', 'https://github.com/daaaaahye/sion']]
