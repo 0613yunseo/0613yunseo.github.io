@@ -9,14 +9,15 @@ const PROJECTS = [
     period: '2026.11', org: 'NEXT AI 교내 해커톤', team: '개인', award: '장려상',
     title: 'CatchUp AI', sub: '회의 요구사항 ↔ GitHub 코드 구현 근거 검증 서비스',
     summary: '회의록·피드백에서 요구사항을 추출하고, 결정 변경 이력과 공개 GitHub 저장소의 실제 코드 근거를 연결해 구현 여부를 판정하는 AI 기반 검증 서비스입니다.',
-    stack: ['Next.js', 'TypeScript', 'OpenAI API', 'GitHub REST API', 'Supabase Auth', 'PostgreSQL', 'RLS', 'Vercel', 'Playwright'],
+    stack: ['Next.js', 'TypeScript', 'Gemini API', 'OpenAI API', 'GitHub REST API', 'Supabase Auth', 'PostgreSQL', 'RLS', 'Vercel', 'Playwright'],
     points: ['서버 API에서 AI 응답의 원문·코드 인용을 실제 원본과 대조', 'Supabase RLS로 사용자별 리포트 접근 제한', '자동 테스트 147개 · tsc · ESLint 통과'],
     role: [
       'Next.js 서버 API로 문서 텍스트 추출 → 요구사항 추출 → 회의 변경 비교 → GitHub 코드 조회 → 구현 판정 흐름 구성',
       '요구사항 결정 상태(CONFIRMED·PROPOSED·UNCLEAR)와 구현 판정(VERIFIED·PARTIAL·MISMATCH·UNKNOWN) 정의',
       'GitHub REST API로 공개 저장소 확인과 기본 브랜치 코드 수집',
       'Supabase Auth 이메일 로그인, 리포트 저장·조회·삭제, RLS 정책(auth.uid() = user_id) 적용',
-      'OpenAI API 키는 서버 환경변수로만 관리'
+      'AI 공급자를 OpenAI에서 Gemini로 전환: 기존 응답 형식(responses.create)을 맞추는 어댑터로 분석 로직은 그대로 두고 교체, 무료 등급 수요 과다(503) 시 대체 모델로 재시도, 테스트 155개 통과',
+      'AI API 키는 서버 환경변수로만 관리'
     ],
     verify: [
       'AI가 제시한 문서 인용이 실제 입력 문서에 있는지 서버에서 검증',
@@ -27,7 +28,7 @@ const PROJECTS = [
     problem: '캡스톤과 현장실습에서 회의에서 정한 기능이 이후 어떻게 바뀌었는지, 실제 코드에 반영됐는지 확인하려면 문서와 GitHub 파일을 일일이 대조해야 했습니다.',
     solve: '요구사항을 출처와 함께 구조화하고 실제 코드 근거로 점검하는 흐름을 만들었습니다. 최종 QA에서 자동 테스트 147개, TypeScript·ESLint, 프로덕션 빌드, 1440·768·390px 반응형을 확인했습니다. 계정 간 교차 접근 차단 통합 테스트는 남은 과제입니다.',
     img: 'catchup.jpg', imgNote: '메인 화면',
-    gallery: [['catchup-analyze.jpg', '새 분석: 문서 입력과 단계별 진행 상태'], ['catchup-demo.jpg', '요구사항 판정과 코드 근거 (예시 리포트)'], ['catchup-flow.jpg', '분석 흐름과 네 가지 판정 기준']],
+    gallery: [['catchup-analyze.jpg', '새 분석: 문서 입력, GitHub 저장소, 단계별 진행 상태 화면'], ['catchup-compare.jpg', '새 분석: 1주차·5주차 회의록 변경 비교 결과 8건과 GitHub 저장소 조회 (2026.11.23 QA, Gemini)'], ['catchup-report.jpg', '분석 리포트: 요구사항 8건 판정 요약과 회의 변경 유형 (2026.11.23 QA)'], ['catchup-evidence.jpg', '분석 리포트: 판정 이유와 GitHub 원본으로 확인한 코드 근거 lib/validate.ts (2026.11.23 QA)']],
     links: [['서비스', 'https://catchup-ai-liart.vercel.app/'], ['발표자료 PDF', 'assets/docs/catchup-ai-presentation.pdf'], ['GitHub', 'https://github.com/0613yunseo/catchup-ai']]
   },
   {
@@ -233,7 +234,7 @@ const STACK = [
   ['데이터베이스', 'PostgreSQL · MySQL · SQL · Supabase (Auth · RLS)'],
   ['API · 설계', 'REST API · API 명세서 · ERD · PRD · IA'],
   ['협업 · 배포', 'Git · GitHub · Eclipse · Vercel'],
-  ['AI 활용', 'OpenAI API · ChatGPT · Codex · Claude']
+  ['AI 활용', 'Gemini API · OpenAI API · ChatGPT · Codex · Claude']
 ];
 
 /* ===== 렌더링 ===== */
