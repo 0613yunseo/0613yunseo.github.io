@@ -90,6 +90,8 @@ h2{font-size:clamp(28px,4vw,42px);line-height:1.25;font-weight:800;letter-spacin
 .f-card:hover .f-vis img{transform:scale(1.03)}
 .f-body{padding:32px 34px;display:flex;flex-direction:column;gap:10px}
 .f-body h3{font-size:26px;letter-spacing:-.02em;line-height:1.25}
+.who{display:inline-block;font-size:13px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--blue-s);color:var(--blue-d);margin-right:6px;vertical-align:1px}
+.who.solo{background:var(--blue-d);color:#fff}
 .p-tag em{font-style:normal;color:var(--blue-d)}
 .f-sub{color:var(--sub);font-size:16px;margin-top:-4px}
 .f-points{list-style:none;display:flex;flex-direction:column;gap:6px;margin:6px 0 4px}
@@ -168,6 +170,7 @@ footer{text-align:center;padding:28px;font-size:14px;color:var(--sub);background
 .m-block p{font-size:15px}
 .m-img{margin:0 0 6px;border-radius:14px;overflow:hidden;background:var(--bg)}
 .m-img img{display:block;width:100%;height:auto}
+.m-img+.m-img{margin-top:14px}
 .m-img figcaption{font-size:13px;color:var(--sub);padding:6px 12px;background:var(--bg)}
 .m-flow{background:var(--blue-s);border-radius:14px;padding:16px 0 4px}
 .m-flow h4{font-size:14px;color:var(--blue-d);text-align:center}

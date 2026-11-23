@@ -6,7 +6,7 @@
 const PROJECTS = [
   {
     id: 'catchup', main: true, cat: 'backend',
-    period: '2026.11', org: 'NEXT AI 교내 해커톤 · 개인 프로젝트', award: '장려상',
+    period: '2026.11', org: 'NEXT AI 교내 해커톤', team: '개인', award: '장려상',
     title: 'CatchUp AI', sub: '회의 요구사항 ↔ GitHub 코드 구현 근거 검증 서비스',
     summary: '회의록·피드백에서 요구사항을 추출하고, 결정 변경 이력과 공개 GitHub 저장소의 실제 코드 근거를 연결해 구현 여부를 판정하는 AI 기반 검증 서비스입니다.',
     stack: ['Next.js', 'TypeScript', 'OpenAI API', 'GitHub REST API', 'Supabase Auth', 'PostgreSQL', 'RLS', 'Vercel', 'Playwright'],
@@ -26,12 +26,13 @@ const PROJECTS = [
     ],
     problem: '캡스톤과 현장실습에서 회의에서 정한 기능이 이후 어떻게 바뀌었는지, 실제 코드에 반영됐는지 확인하려면 문서와 GitHub 파일을 일일이 대조해야 했습니다.',
     solve: '요구사항을 출처와 함께 구조화하고 실제 코드 근거로 점검하는 흐름을 만들었습니다. 최종 QA에서 자동 테스트 147개, TypeScript·ESLint, 프로덕션 빌드, 1440·768·390px 반응형을 확인했습니다. 계정 간 교차 접근 차단 통합 테스트는 남은 과제입니다.',
-    img: 'catchup.jpg',
-    links: [['서비스', 'https://catchup-ai-liart.vercel.app/'], ['GitHub', 'https://github.com/0613yunseo/catchup-ai']]
+    img: 'catchup.jpg', imgNote: '메인 화면',
+    gallery: [['catchup-analyze.jpg', '새 분석: 문서 입력과 단계별 진행 상태'], ['catchup-demo.jpg', '요구사항 판정과 코드 근거 (예시 리포트)'], ['catchup-flow.jpg', '분석 흐름과 네 가지 판정 기준']],
+    links: [['서비스', 'https://catchup-ai-liart.vercel.app/'], ['발표자료 PDF', 'assets/docs/catchup-ai-presentation.pdf'], ['GitHub', 'https://github.com/0613yunseo/catchup-ai']]
   },
   {
     id: 'sion', main: true, cat: 'backend',
-    period: '2026.01', org: '시온정보시스템 · 일본 현장실습 · 6인 팀',
+    period: '2026.01', org: '시온정보시스템 · 일본 현장실습', team: '6인 팀',
     title: '상수도 관리 웹 시스템', sub: 'JSP · PostgreSQL 기반 관리자 업무 시스템',
     summary: '일본 현지 기업의 요구사항을 바탕으로 고객 정보, 관할 구역, 요금 고지, 입금 및 연체 고객 관리를 지원하는 JSP 기반 상수도 관리 웹 시스템입니다.',
     stack: ['Java', 'JSP', 'PostgreSQL', 'SQL', 'HTML/CSS/JS', 'Eclipse', 'Git'],
@@ -50,7 +51,7 @@ const PROJECTS = [
   },
   {
     id: 'haengdong', main: true, cat: 'backend',
-    period: '2026.03 ~ 진행중', org: '캡스톤디자인',
+    period: '2026.03 ~ 진행중', org: '캡스톤디자인', team: '팀',
     title: '동행가드', sub: '전동 휠체어 이동 안전 보조 서비스',
     summary: '전동 휠체어 이용자가 이동 중 마주치는 장애물·단차·충돌 위험을 센서로 감지하고, 앱과 관리자 웹에서 위험 상태와 누적 위험 구간을 확인하는 서비스입니다.',
     stack: ['Spring Boot', 'REST API', 'MySQL', 'Kotlin', 'Jetpack Compose', 'React', 'TypeScript'],
@@ -68,7 +69,7 @@ const PROJECTS = [
   },
   {
     id: 'binteum', main: true, cat: 'backend',
-    period: '2026.03 ~ 진행중', org: '창업동아리 뉴클리어스 · 5인 팀',
+    period: '2026.03 ~ 진행중', org: '창업동아리 뉴클리어스', team: '5인 팀',
     title: '빈틈', sub: '목적 기반 카페 혼잡도 탐색 서비스',
     summary: '방문 전에 카페의 현재·예상 혼잡도와 공부·업무·대화·휴식 적합도를 확인하는 서비스입니다. 최근 제보가 있으면 현재 혼잡도를, 부족하면 요일·시간대 패턴과 누적 제보로 예상 혼잡도를 보여주고, 최근 제보 시각과 누적 제보 수로 신뢰도를 함께 표시합니다.',
     stack: ['Java 21', 'Spring Boot 4', 'Spring Security', 'JWT', 'JPA', 'PostgreSQL · PostGIS', 'Redis', 'JUnit'],
@@ -94,7 +95,7 @@ const PROJECTS = [
 
   /* ----- 아카이브 ----- */
   {
-    id: 'pivot', cat: 'backend', period: '2026.04 ~ 2026.05', org: '팀 프로젝트 · 공모전 제출',
+    id: 'pivot', cat: 'backend', period: '2026.04 ~ 2026.05', org: '서울시 빅데이터 활용 경진대회', team: '팀',
     title: 'Pivot Seoul', sub: '서울 공공데이터 기반 AI 의사결정 시뮬레이터',
     summary: '서울시 공공데이터로 주거·커리어·돌봄·정책 선택을 현재 지역과 비교 지역 A/B로 비교하고, 생애 조건에 맞는 의사결정을 돕는 AI 시뮬레이터입니다.',
     stack: ['Spring Boot', 'Java 17', 'PostgreSQL', 'FastAPI', 'Next.js', 'TypeScript', 'Docker'],
@@ -106,10 +107,10 @@ const PROJECTS = [
       '결과 화면을 한 줄 진단 → 임계점 → A/B 비교 → 위험 구간 → 회복 방법 → 이번 주 할 일 → 데이터 근거 순서로 구성'
     ],
     img: 'pivotseoul.jpg',
-    links: [['프로토타입', 'https://apron-nova-83477765.figma.site/'], ['GitHub', 'https://github.com/bigdata-seoul/pivotSeoul']]
+    links: [['프로토타입', 'https://apron-nova-83477765.figma.site/'], ['공모전 제출 PDF', 'assets/docs/pivot-seoul-proposal.pdf'], ['GitHub', 'https://github.com/bigdata-seoul/pivotSeoul']]
   },
   {
-    id: 'glin', cat: 'backend', period: '2026.02', org: '개인 프로젝트',
+    id: 'glin', cat: 'backend', period: '2026.02', org: '', team: '개인',
     title: 'Glin', sub: 'Evidence 기반 PDF 요약 MCP 서버',
     summary: '로컬 PDF를 요약하고, 각 요약 문장의 원문 근거를 page·line·quote 단위로 확인할 수 있도록 설계한 서비스입니다.',
     stack: ['MCP Server', 'Supabase', 'Docker Compose', 'Embedding Retrieval', 'Reranker'],
@@ -123,7 +124,7 @@ const PROJECTS = [
     links: [['GitHub', 'https://github.com/0613yunseo/Glin']]
   },
   {
-    id: 'trenda', cat: 'backend', period: '2025.10 ~ 2025.12', org: '미니 프로젝트 · 스터디',
+    id: 'trenda', cat: 'backend', period: '2025.10 ~ 2025.12', org: '미니 프로젝트 · 스터디', team: '팀',
     title: 'Trenda', sub: '디자인·개발 전공자 성장 관리 플랫폼',
     summary: '전공자가 프로젝트, 포트폴리오, 트렌드 리서치, 학습 성장을 한 곳에서 관리하도록 기획한 플랫폼입니다.',
     stack: ['Spring Boot', 'PostgreSQL', 'Next.js', 'React', 'TypeScript', 'Figma'],
@@ -136,7 +137,7 @@ const PROJECTS = [
     links: [['웹 배포', 'https://trenda-vj5z.vercel.app/'], ['GitHub', 'https://github.com/siren8289/trenda']]
   },
   {
-    id: 'meme', cat: 'web', period: '2025.09 ~ 2025.12', org: '창업동아리 · 부회장 · 개발 총괄',
+    id: 'meme', cat: 'web', period: '2025.09 ~ 2025.12', org: '창업동아리 · 부회장 · 개발 총괄', team: '팀',
     title: 'TrendArc · 밈 아카이브', sub: '참여형 밈 아카이브 웹',
     summary: '밈과 유행어의 기원, 확산 과정, 사용 맥락을 기록하고 사용자 투표·요청·신고로 함께 만드는 웹 아카이브입니다.',
     stack: ['React', 'Vite', 'JavaScript', 'Figma', 'GitHub'],
@@ -149,7 +150,7 @@ const PROJECTS = [
     links: [['GitHub', 'https://github.com/0613yunseo/Meme-Archive']]
   },
   {
-    id: 'eco', cat: 'web', period: '2025.10 ~ 2025.11', org: '5인 팀 프로젝트',
+    id: 'eco', cat: 'web', period: '2025.10 ~ 2025.11', org: '캡스톤 디자인 공모전', team: '5인 팀',
     title: 'EcoCampus+', sub: '센서 기반 스마트 캠퍼스 ESG 플랫폼',
     summary: 'BLE Beacon·Raspberry Pi로 강의실 이용 행동을 인식하고, AI 분석 결과를 미션·보상·피드백으로 연결하는 ESG 플랫폼입니다.',
     stack: ['Expo', 'React Native', 'TypeScript', 'Figma', 'GitHub'],
@@ -162,7 +163,7 @@ const PROJECTS = [
     links: [['프로토타입', 'https://probe-title-31527156.figma.site/dashboard'], ['GitHub', 'https://github.com/siren8289/ecoCampus']]
   },
   {
-    id: 'maumm', cat: 'web', period: '2025.08', org: '사이드 프로젝트',
+    id: 'maumm', cat: 'web', period: '2025.08', org: '사이드 프로젝트', team: '팀',
     title: 'Maumm', sub: '감정 기록 기반 모바일 서비스',
     summary: '감정과 짧은 일기를 기록하고, 누적 데이터를 통계와 피드백으로 확인하는 감정 기록 앱입니다.',
     stack: ['React Native', 'Expo', 'JavaScript', 'GitHub'],
@@ -174,7 +175,7 @@ const PROJECTS = [
     links: [['GitHub', 'https://github.com/siren8289/Maumm_side-project']]
   },
   {
-    id: 'minimo', cat: 'web', period: '2025.05 ~ 2025.07', org: '창업동아리 VALUABLE',
+    id: 'minimo', cat: 'web', period: '2025.05 ~ 2025.07', org: '창업동아리 VALUABLE', team: '팀',
     title: 'Minimo', sub: '1인 가구 공동구매·렌탈 플랫폼',
     summary: '1인 가구가 생활용품을 공동구매하거나 필요한 제품을 렌탈·공유할 수 있는 플랫폼입니다.',
     stack: ['React', 'JavaScript', 'React Router DOM', 'GitHub'],
@@ -186,7 +187,7 @@ const PROJECTS = [
     links: [['GitHub', 'https://github.com/siren8289/UXVERSE']]
   },
   {
-    id: 'mido', cat: 'plan', period: '2025.12 ~ 2026.01', org: '어치브모먼트 블레이버스 인사이트톤', award: '본선 진출',
+    id: 'mido', cat: 'plan', period: '2025.12 ~ 2026.01', org: '어치브모먼트 블레이버스 인사이트톤', team: '팀', award: '본선 진출',
     title: 'Mido', sub: '과정 중심 AI 협업 가이드라인 시스템',
     summary: 'AI 결과물의 사후 검토 부담을 줄이기 위해, 팀 기준을 작업 과정 중에 제공하는 AI 협업 가이드라인 시스템입니다.',
     stack: ['Figma', 'Notion', 'PRD', 'IA', 'User Flow'],
@@ -195,7 +196,7 @@ const PROJECTS = [
     links: [['프로토타입', 'https://daisy-power-83395279.figma.site/'], ['GitHub', 'https://github.com/siren8289/MIDO']]
   },
   {
-    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', award: '최우수상',
+    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', team: '5인 팀', award: '최우수상',
     title: 'earDream', sub: '시니어 맞춤형 디지털 학습 앱',
     summary: 'AI 진단, 챗봇 학습, 미션 수행, 보상 흐름으로 시니어의 디지털 기기 사용을 돕는 학습 앱 기획입니다. 개발 전공 3명, 디자인 전공 2명이 참여했습니다.',
     stack: ['Figma', 'Notion', 'IA', 'User Flow', 'Prototype'],
@@ -252,7 +253,7 @@ $('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
   <button class="f-card" data-id="${p.id}">
     <div class="f-vis">${visual(p)}</div>
     <div class="f-body">
-      <span class="p-tag">${esc(p.period)}${p.award ? ` · <em>${esc(p.award)}</em>` : ''}</span>
+      <span class="p-tag"><span class="who${p.team === '개인' ? ' solo' : ''}">${esc(p.team)}</span> ${esc(p.period)}${p.award ? ` · <em>${esc(p.award)}</em>` : ''}</span>
       <h3>${esc(p.title)}</h3>
       <p class="f-sub">${esc(p.sub)}</p>
       <ul class="f-points">${p.points.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
@@ -264,7 +265,7 @@ $('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
 $('#grid').innerHTML = PROJECTS.filter(p => !p.main).map(p => `
   <button class="p-card" data-cat="${p.cat}" data-id="${p.id}">
     ${p.img ? `<div class="p-thumb"><img src="${SHOT + p.img}" alt="" loading="lazy"></div>` : ''}
-    <span class="p-tag">${esc(p.period)}</span>
+    <span class="p-tag"><span class="who${p.team === '개인' ? ' solo' : ''}">${esc(p.team)}</span> ${esc(p.period)}</span>
     <h3>${esc(p.title)}</h3>
     <p>${esc(p.sub)}</p>
     ${p.award ? `<span class="p-badge">${esc(p.award)}</span>` : ''}
@@ -304,12 +305,12 @@ function openModal(id, via = 'card') {
   $('#mCount').textContent = `${curIdx + 1} / ${n}`;
   $('#mPrevT').textContent = prev.title; $('#mPrev').setAttribute('aria-label', `이전 프로젝트: ${prev.title}`);
   $('#mNextT').textContent = next.title; $('#mNext').setAttribute('aria-label', `다음 프로젝트: ${next.title}`);
-  $('#mMeta').textContent = [p.period, p.org, p.award].filter(Boolean).join(' · ');
+  $('#mMeta').textContent = [p.period, p.team === '개인' ? '개인 프로젝트' : p.team, p.org, p.award].filter(Boolean).join(' · ');
   $('#mTitle').textContent = p.title;
   $('#mSum').textContent = p.summary;
   $('#mTags').innerHTML = p.stack.map(s => `<span>${esc(s)}</span>`).join('');
   $('#mBody').innerHTML =
-    (p.img ? `<figure class="m-img"><img src="${SHOT + p.img}" alt="${esc(p.title)} 화면">${p.imgNote ? `<figcaption>${esc(p.imgNote)}</figcaption>` : ''}</figure>`
+    (p.img ? `<figure class="m-img"><img src="${SHOT + p.img}" alt="${esc(p.title)} 화면">${p.imgNote ? `<figcaption>${esc(p.imgNote)}</figcaption>` : ''}</figure>` + (p.gallery ? p.gallery.map(([f, c]) => `<figure class="m-img"><img src="${SHOT + f}" alt="${esc(p.title)} ${esc(c)}" loading="lazy"><figcaption>${esc(c)}</figcaption></figure>`).join('') : '')
       : p.flow ? `<div class="m-flow"><h4>데이터 흐름</h4>${visual(p)}</div>` : '') +
     block('담당 역할', p.role) +
     block('AI 결과 검증 방식', p.verify) +
