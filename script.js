@@ -149,8 +149,8 @@ const PROJECTS = [
     solve: '원인을 로그의 UndefinedColumn으로 찾아, 기존 테이블은 삭제하지 않고 documents_legacy로 이름만 바꿔 보관한 뒤 현재 구조로 다시 만드는 마이그레이션을 추가했습니다. 옛 구조 DB와 빈 DB 모두에서 적용과 재실행을 확인했습니다.',
     flow: ['PDF 업로드', '텍스트 추출 · 라인 생성 (page · line_no)', '요약 (Gemini / 추출식)', '근거 검색(TF-IDF) · 재랭킹', 'page · line · quote 반환'],
     fit: true,
-    img: 'glin-analysis.jpg', imgNote: '요약 · 분석 화면: 요약 문장을 누르면 근거 구간(p.2 L.5–6)과 원문 줄이 함께 강조됨',
-    gallery: [['glin-upload.jpg', '업로드 화면: PDF를 올리면 추출 · 요약 · 근거 매핑까지 진행']],
+    img: 'glin-upload.jpg', imgNote: '업로드 화면: PDF를 올리면 추출 · 요약 · 근거 매핑까지 진행',
+    gallery: [['glin-analysis.jpg', '요약 · 분석 화면: 요약 문장을 누르면 근거 구간(p.2 L.5–6)과 원문 줄이 함께 강조됨']],
     links: [['데모 (배포)', 'https://glin.vercel.app/upload'], ['GitHub', 'https://github.com/0613yunseo/Glin']]
   },
   {
