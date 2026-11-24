@@ -132,7 +132,7 @@ const PROJECTS = [
     links: [['프로토타입', 'https://apron-nova-83477765.figma.site/'], ['공모전 제출 PDF', 'assets/docs/pivot-seoul-proposal.pdf'], ['GitHub', 'https://github.com/bigdata-seoul/pivotSeoul']]
   },
   {
-    id: 'glin', cat: 'backend', period: '2026.02 ~ 2026.11', org: '', team: '개인',
+    id: 'glin', cat: 'backend', period: '2026.02', org: '', team: '개인',
     title: 'Glin', sub: 'Evidence 기반 PDF 요약 서비스',
     summary: 'PDF를 올리면 요약과 함께 각 요약 문장의 원문 근거를 page·line·quote 단위로 확인할 수 있는 서비스입니다. PRD를 바탕으로 ERD를 설계하고 업로드·추출·요약·근거 매핑 API를 구현해 Render·Vercel·Supabase에 배포했습니다.',
     stack: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL (Supabase)', 'Gemini API', 'Next.js', 'Render · Vercel'],
