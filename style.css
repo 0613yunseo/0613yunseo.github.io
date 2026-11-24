@@ -74,7 +74,7 @@ h2{font-size:clamp(28px,4vw,42px);line-height:1.25;font-weight:800;letter-spacin
 .p-tag{font-size:14px;font-weight:700;color:var(--blue)}
 .p-card h3{font-size:20px;line-height:1.35}
 .p-card p{font-size:15px;color:var(--ink);flex:1}
-.p-badge{align-self:flex-start;font-size:13px;font-weight:700;color:var(--blue-d);background:var(--blue-s);padding:5px 12px;border-radius:999px}
+.p-badge{align-self:flex-start;font-size:13px;font-weight:700;color:var(--blue-d);background:var(--blue-s);padding:5px 12px;border-radius:14px;line-height:1.4}
 .p-more{font-size:14px;font-weight:700;color:var(--blue)}
 .sub-h{font-size:20px;font-weight:800;color:var(--ink);margin:40px 0 16px}
 
@@ -87,6 +87,7 @@ h2{font-size:clamp(28px,4vw,42px);line-height:1.25;font-weight:800;letter-spacin
 .f-card:hover h3{color:var(--blue)}
 .f-vis{background:var(--blue-s);min-height:300px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .f-vis img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .5s}
+.f-vis img.fit{height:auto;object-fit:contain}
 .f-card:hover .f-vis img{transform:scale(1.03)}
 .f-body{padding:32px 34px;display:flex;flex-direction:column;gap:10px}
 .f-body h3{font-size:26px;letter-spacing:-.02em;line-height:1.25}
@@ -111,6 +112,8 @@ h2{font-size:clamp(28px,4vw,42px);line-height:1.25;font-weight:800;letter-spacin
 /* archive thumbs */
 .p-thumb{margin:-26px -26px 6px;height:150px;overflow:hidden;background:var(--blue-s)}
 .p-thumb img{width:100%;height:100%;object-fit:cover;object-position:top left}
+.p-thumb:has(img.fit){height:auto}
+.p-thumb img.fit{height:auto}
 .p-card{min-height:0}
 .p-card .mini-tags{padding-top:4px}
 

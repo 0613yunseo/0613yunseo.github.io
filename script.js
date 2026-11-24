@@ -34,7 +34,7 @@ const PROJECTS = [
   },
   {
     id: 'sion', main: true, cat: 'backend',
-    period: '2026.01', org: '시온정보시스템 · 일본 현장실습', team: '6인 팀',
+    period: '2026.01', org: '시온정보시스템 · 일본 현장실습', team: '팀',
     title: '상수도 관리 웹 시스템', sub: 'JSP · PostgreSQL 기반 관리자 업무 시스템',
     summary: '일본 현지 기업의 요구사항을 바탕으로 고객, 계량기, 검침, 청구, 납부, 연체를 관리하는 JSP · PostgreSQL 기반 상수도 관리자 웹 시스템입니다. 관리자가 로그인하면 자신의 관할 동 고객만 보이고, 청구금액과 납부 합계로 부족액을 계산해 입금 이력을 확인합니다. 2026.01.06 ~ 01.30, DB 2 · 웹 2 · 디자인 2명으로 나눠 진행했습니다.',
     stack: ['Java', 'JSP', 'PostgreSQL', 'SQL', 'Tomcat', 'HTML/CSS/JS', 'Eclipse', 'Git'],
@@ -56,7 +56,7 @@ const PROJECTS = [
     // 담당 화면(로그인 · 관할 구역 관리)의 흐름
     flow: ['로그인 화면 (JSP)', '관리자 인증 · 세션 (Administrator 테이블)', '관할 구역 · 고객명 조회 (customers)', 'PostgreSQL'],
     // 화면: 팀 저장소 dev 브랜치(최종본)를 로컬 Tomcat · PostgreSQL에서 실행해 캡처. 고객은 노션 데이터.
-    img: 'sion-main.jpg', imgNote: '메인 화면: 전체 고객 수 · 체납 고객 수 요약 (로컬 재현 · 데모 데이터)',
+    fit: true, img: 'sion-main.jpg', imgNote: '메인 화면: 전체 고객 수 · 체납 고객 수 요약 (로컬 재현 · 데모 데이터)',
     gallery: [
       ['sion-district.jpg', '管轄区域管理: 관할 구역 · 고객명으로 고객 조회 (담당 화면)'],
       ['sion-login.jpg', '관리자 로그인: 사번 · 비밀번호를 관리자 테이블과 대조 (담당 화면)']
@@ -79,23 +79,30 @@ const PROJECTS = [
     ],
     problem: '센서의 위험 이벤트를 모두 조회하자 같은 위험 단계가 반복되어 기록이 길어졌습니다.',
     solve: '위험 단계가 바뀌는 시점을 중심으로 보여주는 방식을 제안하고, 백엔드 담당 팀원과 이벤트 요약 방식과 API 응답 구조를 함께 검토했습니다. 일부 로직은 보완 중입니다.',
-    flow: ['Android 앱 · 관리자 웹', 'Spring Boot REST API', 'MySQL', 'FastAPI AI 서버 (경로·위험 분석)']
+    flow: ['Android 앱 · 관리자 웹', 'Spring Boot REST API', 'MySQL', 'FastAPI AI 서버 (경로·위험 분석)'],
+    // 화면: 시연 자료 폴더의 앱 · 웹 캡처 중 주요 화면만 사용 (카메라 영상 · 정확한 위치가 보이는 화면은 제외)
+    img: 'dg-web-dashboard.jpg', imgNote: '관리자 웹 Dashboard: 위험 이벤트 수, 단계별 비율, 위험 구간 TOP',
+    gallery: [
+      ['dg-app.jpg', '앱: 센서 연결 → 주행 기록 → 주행 상세(위험 단계 이벤트) → 안전 지도'],
+      ['dg-web-map.jpg', '관리자 웹: 위험 구간 지도와 구간 목록'],
+      ['dg-web-report.jpg', '관리자 웹: 위험 리포트 (누적 이벤트 · 위험 단계 비율)']
+    ],
+    links: [['관리자 웹 (배포)', 'https://donghaeng-guard-admin.vercel.app/'], ['GitHub', 'https://github.com/0613yunseo/donghaeng-guard']]
   },
   {
     id: 'binteum', main: true, cat: 'backend',
-    period: '2026.03 ~ 진행중', org: '창업동아리 뉴클리어스', team: '5인 팀',
-    title: '빈틈', sub: '목적 기반 카페 혼잡도 탐색 서비스',
-    summary: '방문 전에 카페의 현재·예상 혼잡도와 공부·업무·대화·휴식 적합도를 확인하는 서비스입니다. 최근 제보가 있으면 현재 혼잡도를, 부족하면 요일·시간대 패턴과 누적 제보로 예상 혼잡도를 보여주고, 최근 제보 시각과 누적 제보 수로 신뢰도를 함께 표시합니다.',
-    stack: ['Java 21', 'Spring Boot 4', 'Spring Security', 'JWT', 'JPA', 'PostgreSQL · PostGIS', 'Redis', 'JUnit'],
-    points: ['Spring Security + JWT 인증·권한(USER · ADMIN · 비회원) 공통 기반 구축', '401/403을 공통 오류 규격(ProblemDetail + code)으로 통일', '보안 설정 테스트 18개 · 인증 가이드 · Git 컨벤션 문서화'],
+    period: '2026.03 ~ 진행중', org: '창업동아리 뉴클리어스', team: '팀',
+    title: '빈틈', sub: '목적 기반 카페 혼잡도 탐색 서비스 · PoC 완료, 본 개발 시작',
+    summary: '현재 기획과 본 개발을 시작한 단계입니다(PoC는 완료). 방문 전에 카페의 현재·예상 혼잡도와 공부·업무·대화·휴식 적합도를 확인하는 서비스입니다. 최근 제보가 있으면 현재 혼잡도를, 부족하면 요일·시간대 패턴과 누적 제보로 예상 혼잡도를 보여주고, 최근 제보 시각과 누적 제보 수로 신뢰도를 함께 표시합니다.',
+    stack: ['Java 21', 'Spring Boot', 'Spring Security', 'JWT', 'PostgreSQL', 'JUnit'],
+    points: ['PoC: 혼잡도 제보 등록 · 60분 내 중복 제보 차단 · JUnit 4개', '본 개발 시작: Spring Security + JWT 인증·권한 공통 기반', '401/403 공통 오류 규격 · 보안 테스트 18개 (진행 중)'],
     role: [
-      '백엔드 공통 기반 셋업: 프로젝트 구조, local·prod·test 프로필, 필수 환경변수 검증(RequiredEnvironmentValidator)',
-      'JwtTokenProvider(토큰 생성 · 서명·만료 검증)와 JwtAuthenticationFilter(Bearer 토큰 추출 · SecurityContext 설정) 구현',
-      'SecurityConfig에 공개 · 로그인 사용자 · /api/admin/** 관리자 경로 규칙, Stateless 세션, CORS 설정',
-      'SecurityErrorHandler로 401·403 응답을 팀 공통 오류 규격(ProblemDetail + code)에 연동',
-      'JwtTokenProviderTest(5개), SecurityConfigTest(13개) 작성',
-      '인증·권한 가이드, Git 협업 컨벤션(브랜치명 규칙 포함), PR 템플릿 작성과 PR 머지 관리',
-      'PoC 단계: 혼잡도 제보 등록 기능 — 필수 입력값 검증, 같은 사용자의 60분 내 중복 제보 차단'
+      '[PoC] 혼잡도 제보 등록 기능 담당: POST /api/reports, 사용자 ID · 카페 ID · 혼잡도 값 필수 검증과 혼잡도 값 검증(CrowdLevel)',
+      '[PoC] 같은 사용자가 같은 카페에 60분 이내 다시 제보하면 등록을 막는 중복 제보 로직(DuplicateReportException)과 예외 처리, JUnit 4개로 정상 등록 · 중복 · 잘못된 혼잡도 · 사용자 ID 누락 확인',
+      '[본 개발 · 진행 중] 백엔드 공통 기반 셋업: 프로젝트 구조, local·prod·test 프로필, 필수 환경변수 검증(RequiredEnvironmentValidator)',
+      '[본 개발 · 진행 중] JwtTokenProvider(토큰 생성 · 서명·만료 검증)와 JwtAuthenticationFilter(Bearer 토큰 추출 · SecurityContext 설정) 구현',
+      '[본 개발 · 진행 중] SecurityConfig에 공개 · 로그인 사용자 · /api/admin/** 관리자 경로 규칙, Stateless 세션, CORS 설정과 401·403 공통 오류 규격(ProblemDetail + code) 연동',
+      '[본 개발 · 진행 중] JwtTokenProviderTest(5개), SecurityConfigTest(13개) 작성, 인증·권한 가이드, Git 협업 컨벤션 · PR 템플릿 작성과 PR 머지 관리'
     ],
     verify: [
       '구현 전에 처리 조건과 예외 상황을 먼저 정리',
@@ -104,7 +111,8 @@ const PROJECTS = [
     ],
     problem: '기획상 비회원도 홈·카페 탐색·상세·비교를 볼 수 있어야 하지만, 기본 보안 규칙은 인증 경로 외 모든 요청에 로그인을 요구했습니다. 같은 API에서 로그인 여부에 따라 응답도 달라져야 했습니다.',
     solve: '공개 경로에서도 토큰이 있으면 필터가 인증 정보를 넣고, 비회원이면 principal을 null로 두어 하나의 API 안에서 분기할 수 있게 했습니다. 비회원 조회 경로는 API 규격 확정 후 GET만 공개하는 방식으로 가이드에 정리했습니다.',
-    flow: ['요청 · Authorization: Bearer 토큰', 'JwtAuthenticationFilter (서명 · 만료 검증)', 'SecurityConfig 경로 권한 (공개 · USER · ADMIN)', 'Controller  /  실패 시 401 · 403 ProblemDetail']
+    flow: ['요청 · Authorization: Bearer 토큰', 'JwtAuthenticationFilter (서명 · 만료 검증)', 'SecurityConfig 경로 권한 (공개 · USER · ADMIN)', 'Controller  /  실패 시 401 · 403 ProblemDetail'],
+    links: [['본 개발 GitHub (진행 중)', 'https://github.com/beentteum/beenteum'], ['PoC GitHub', 'https://github.com/beentteum/beentteum_POC1']]
   },
 
   /* ----- 아카이브 ----- */
@@ -164,7 +172,7 @@ const PROJECTS = [
     links: [['GitHub', 'https://github.com/0613yunseo/Meme-Archive']]
   },
   {
-    id: 'eco', cat: 'web', period: '2025.10 ~ 2025.11', org: '캡스톤 디자인 공모전', team: '5인 팀',
+    id: 'eco', cat: 'web', period: '2025.10 ~ 2025.11', org: '캡스톤 디자인 공모전', team: '팀',
     title: 'EcoCampus+', sub: '센서 기반 스마트 캠퍼스 ESG 플랫폼',
     summary: 'BLE Beacon·Raspberry Pi로 강의실 이용 행동을 인식하고, AI 분석 결과를 미션·보상·피드백으로 연결하는 ESG 플랫폼입니다.',
     stack: ['Expo', 'React Native', 'TypeScript', 'Figma', 'GitHub'],
@@ -210,7 +218,7 @@ const PROJECTS = [
     links: [['프로토타입', 'https://daisy-power-83395279.figma.site/'], ['GitHub', 'https://github.com/siren8289/MIDO']]
   },
   {
-    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', team: '5인 팀', award: '최우수상',
+    id: 'eardream', cat: 'plan', period: '2025.09 ~ 2025.10', org: '지역혁신 인재양성 연합 페스티벌', team: '팀', award: '최우수상',
     title: 'earDream', sub: '시니어 맞춤형 디지털 학습 앱',
     summary: 'AI 진단, 챗봇 학습, 미션 수행, 보상 흐름으로 시니어의 디지털 기기 사용을 돕는 학습 앱 기획입니다. 개발 전공 3명, 디자인 전공 2명이 참여했습니다.',
     stack: ['Figma', 'Notion', 'IA', 'User Flow', 'Prototype'],
@@ -227,7 +235,7 @@ const MORE = [
   ]],
   ['Experience', [
     ['2026.03 ~', '캡스톤디자인 · 동행가드 — Spring Boot REST API 연동, Kotlin 앱 · React 관리자 웹'],
-    ['2026.01', '시온정보시스템 일본 현장실습 — JSP · PostgreSQL 상수도 관리 웹 시스템 (6인 팀)'],
+    ['2026.01', '시온정보시스템 일본 현장실습 — JSP · PostgreSQL 상수도 관리 웹 시스템 (팀)'],
     ['2025.03 ~', '한양여자대학교 창업동아리 VALUABLE · 뉴클리어스 — 팀원에서 부회장']
   ]],
   ['Certificate', [
@@ -255,10 +263,12 @@ const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const SHOT = 'assets/shots/';
+// 수상 표시: 어디서 받았는지(대회명)까지 같이
+const awardText = p => (p.org ? `${p.org} ${p.award}` : p.award);
 
 // 이미지가 없으면 데이터 흐름을 그림 대신 보여줌
 const visual = p => p.img
-  ? `<img src="${SHOT + p.img}" alt="${esc(p.title)} 화면" loading="lazy">`
+  ? `<img${p.fit ? ' class="fit"' : ''} src="${SHOT + p.img}" alt="${esc(p.title)} 화면" loading="lazy">`
   : p.flow
     ? `<ol class="flow">${p.flow.map(f => `<li>${esc(f)}</li>`).join('')}</ol>`
     : `<div class="noimg"><b>${esc(p.title)}</b><span>${esc(p.sub)}</span></div>`;
@@ -267,7 +277,7 @@ $('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
   <button class="f-card" data-id="${p.id}">
     <div class="f-vis">${visual(p)}</div>
     <div class="f-body">
-      <span class="p-tag"><span class="who${p.team === '개인' ? ' solo' : ''}">${esc(p.team)}</span> ${esc(p.period)}${p.award ? ` · <em>${esc(p.award)}</em>` : ''}</span>
+      <span class="p-tag"><span class="who${p.team === '개인' ? ' solo' : ''}">${esc(p.team)}</span> ${esc(p.period)}${p.award ? ` · <em>${esc(awardText(p))}</em>` : ''}</span>
       <h3>${esc(p.title)}</h3>
       <p class="f-sub">${esc(p.sub)}</p>
       <ul class="f-points">${p.points.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
@@ -278,11 +288,11 @@ $('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
 
 $('#grid').innerHTML = PROJECTS.filter(p => !p.main).map(p => `
   <button class="p-card" data-cat="${p.cat}" data-id="${p.id}">
-    ${p.img ? `<div class="p-thumb"><img src="${SHOT + p.img}" alt="" loading="lazy"></div>` : ''}
+    ${p.img ? `<div class="p-thumb"><img${p.fit ? ' class="fit"' : ''} src="${SHOT + p.img}" alt="" loading="lazy"></div>` : ''}
     <span class="p-tag"><span class="who${p.team === '개인' ? ' solo' : ''}">${esc(p.team)}</span> ${esc(p.period)}</span>
     <h3>${esc(p.title)}</h3>
     <p>${esc(p.sub)}</p>
-    ${p.award ? `<span class="p-badge">${esc(p.award)}</span>` : ''}
+    ${p.award ? `<span class="p-badge">${esc(awardText(p))}</span>` : ''}
     <div class="mini-tags">${p.stack.slice(0, 3).map(s => `<span>${esc(s)}</span>`).join('')}</div>
   </button>`).join('');
 
