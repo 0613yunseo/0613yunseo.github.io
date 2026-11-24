@@ -132,18 +132,26 @@ const PROJECTS = [
     links: [['프로토타입', 'https://apron-nova-83477765.figma.site/'], ['공모전 제출 PDF', 'assets/docs/pivot-seoul-proposal.pdf'], ['GitHub', 'https://github.com/bigdata-seoul/pivotSeoul']]
   },
   {
-    id: 'glin', cat: 'backend', period: '2026.02', org: '', team: '개인',
-    title: 'Glin', sub: 'Evidence 기반 PDF 요약 MCP 서버',
-    summary: '로컬 PDF를 요약하고, 각 요약 문장의 원문 근거를 page·line·quote 단위로 확인할 수 있도록 설계한 서비스입니다.',
-    stack: ['MCP Server', 'Supabase', 'Docker Compose', 'Embedding Retrieval', 'Reranker'],
+    id: 'glin', cat: 'backend', period: '2026.02 ~ 2026.11', org: '', team: '개인',
+    title: 'Glin', sub: 'Evidence 기반 PDF 요약 서비스',
+    summary: 'PDF를 올리면 요약과 함께 각 요약 문장의 원문 근거를 page·line·quote 단위로 확인할 수 있는 서비스입니다. PRD를 바탕으로 ERD를 설계하고 업로드·추출·요약·근거 매핑 API를 구현해 Render·Vercel·Supabase에 배포했습니다.',
+    stack: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic', 'PostgreSQL (Supabase)', 'Gemini API', 'Next.js', 'Render · Vercel'],
+    points: ['PDF → 페이지·라인(결정적 번호) 저장, 같은 파일은 해시로 중복 방지', '요약 문장마다 근거 구간을 TF-IDF 검색 + 재랭킹으로 연결', 'ERD 7개 테이블 · Alembic 마이그레이션 · 실서버 배포'],
     role: [
-      '제공된 PRD를 바탕으로 IA, 문서·요약·evidence 중심 ERD 설계',
-      '기술스택 정의서와 프로젝트 파일구조 작성',
-      'Supabase DB 구조 정리와 데이터베이스 연동',
-      '텍스트 추출 → 라인 생성 → 요약 → 근거 후보 검색 → 재랭킹 → 반환 흐름 구체화',
-      '무드보드·로고·프로토타입 제작'
+      'PRD를 바탕으로 IA와 문서·페이지·라인·요약·evidence ERD(7개 테이블) 설계, 모델 · 제약조건 · Alembic 마이그레이션 정리',
+      'PDF 업로드 → 텍스트 추출 → 라인 생성 API: 같은 PDF는 같은 line_no가 나오도록 규칙을 고정하고 SHA-256으로 중복 업로드 방지',
+      '요약 API: Gemini로 bullet을 만들고, 키가 없거나 실패하면 TF-IDF 기반 추출식 요약으로 대체',
+      '근거 매핑: 2~4줄 구간(window)을 만들어 TF-IDF 코사인 유사도로 후보를 찾고 핵심어 커버리지로 재랭킹, 점수가 낮으면 지지되지 않음(supported=false)으로 표시',
+      'Render(FastAPI)·Vercel(Next.js)·Supabase(PostgreSQL) 배포와 환경변수 · CORS 설정, 업로드 크기 · 문서 수 · 요약 재실행 횟수 제한',
+      '엔진 단위 테스트 3개, 로컬 DB와 실제 한글 PDF로 업로드 · 요약 · 재실행 결과 확인'
     ],
-    links: [['GitHub', 'https://github.com/0613yunseo/Glin']]
+    problem: '배포한 DB에 예전 개발 때 만든 documents 테이블(컬럼이 달라 file_path 없음)이 남아 있어 목록 조회가 500 오류였습니다.',
+    solve: '원인을 로그의 UndefinedColumn으로 찾아, 기존 테이블은 삭제하지 않고 documents_legacy로 이름만 바꿔 보관한 뒤 현재 구조로 다시 만드는 마이그레이션을 추가했습니다. 옛 구조 DB와 빈 DB 모두에서 적용과 재실행을 확인했습니다.',
+    flow: ['PDF 업로드', '텍스트 추출 · 라인 생성 (page · line_no)', '요약 (Gemini / 추출식)', '근거 검색(TF-IDF) · 재랭킹', 'page · line · quote 반환'],
+    fit: true,
+    img: 'glin-analysis.jpg', imgNote: '요약 · 분석 화면: 요약 문장을 누르면 근거 구간(p.2 L.5–6)과 원문 줄이 함께 강조됨',
+    gallery: [['glin-upload.jpg', '업로드 화면: PDF를 올리면 추출 · 요약 · 근거 매핑까지 진행']],
+    links: [['데모 (배포)', 'https://glin.vercel.app/upload'], ['GitHub', 'https://github.com/0613yunseo/Glin']]
   },
   {
     id: 'trenda', cat: 'backend', period: '2025.10 ~ 2025.12', org: '미니 프로젝트 · 스터디', team: '팀',
