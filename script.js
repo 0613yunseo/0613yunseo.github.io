@@ -164,6 +164,7 @@ const PROJECTS = [
       '커뮤니티 허브와 소개 웹 랜딩 와이어프레임·프로토타입 제작'
     ],
     img: 'trenda.jpg',
+    gallery: [['trenda-admin.jpg', '관리자 페이지: 대시보드 홈 (화면 구성용 샘플 데이터)']],
     links: [['웹 배포', 'https://trenda-vj5z.vercel.app/'], ['GitHub', 'https://github.com/siren8289/trenda']]
   },
   {
@@ -296,7 +297,7 @@ $('#featured').innerHTML = PROJECTS.filter(p => p.main).map((p, i) => `
 
 $('#grid').innerHTML = PROJECTS.filter(p => !p.main).map(p => `
   <button class="p-card" data-cat="${p.cat}" data-id="${p.id}">
-    ${p.img ? `<div class="p-thumb"><img${p.fit ? ' class="fit"' : ''} src="${SHOT + p.img}" alt="" loading="lazy"></div>` : ''}
+    ${p.img ? `<div class="p-thumb"><img${p.fit ? ' class="fit"' : ''} src="${SHOT + p.img}" alt="" loading="lazy"></div>` : `<div class="p-thumb ph"><span>${esc(p.title)}</span></div>`}
     <span class="p-tag"><span class="who${p.team === '개인' ? ' solo' : ''}">${esc(p.team)}</span> ${esc(p.period)}</span>
     <h3>${esc(p.title)}</h3>
     <p>${esc(p.sub)}</p>
